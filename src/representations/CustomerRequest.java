@@ -18,6 +18,7 @@ public class CustomerRequest {
 	private String email;
 	private int numberOfOrders;
 	private int creditCardNumber;
+	private String password;
 	
 	public CustomerRequest(){}
 	
@@ -91,6 +92,14 @@ public class CustomerRequest {
 
 	public void setCreditCardNumber(int creditCardNumber) {
 		this.creditCardNumber = creditCardNumber;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 

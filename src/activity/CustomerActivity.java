@@ -76,9 +76,9 @@ public class CustomerActivity {
 	*/
 	
 	public CustomerRepresentation createCustomer(String firstName, String lastName, String userID, String companyName, String address, 
-			int phoneNumber, String email, int numberOfOrders, int creditCardNumber) {
+			int phoneNumber, String email, int numberOfOrders, int creditCardNumber, String password) {
 		
-		Customer customer = manager.postCustomer(firstName, lastName, userID, companyName, address, phoneNumber, email, numberOfOrders, creditCardNumber);
+		Customer customer = manager.postCustomer(firstName, lastName, userID, companyName, address, phoneNumber, email, numberOfOrders, creditCardNumber, password);
 		
 		CustomerRepresentation customerRepresentation = new CustomerRepresentation();
 		customerRepresentation.setFirstName(customer.getFirstName());
@@ -90,6 +90,7 @@ public class CustomerActivity {
 		customerRepresentation.setEmail(customer.getEmail());
 		customerRepresentation.setNumberOfOrders(customer.getNumberOfOrders());
 		customerRepresentation.setCreditCardNumber(customer.getCreditCardNumber());
+		customerRepresentation.setPassword(customer.getPassword());
 
 		
 		

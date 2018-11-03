@@ -21,7 +21,7 @@ public class BookActivity {
 
 	private static BookManagerFacade managerfacade = new BookManagerFacade();
 	
-	public Set<BookRepresentation> getBooks() {//GETS ALL BOOKS IN STORE
+	public Set<BookRepresentation> getAllBooks() {//GETS ALL BOOKS IN STORE
 		
 		List<Book> books = new ArrayList<Book>();
 		Set<BookRepresentation> bookRepresentations = new HashSet<BookRepresentation>();

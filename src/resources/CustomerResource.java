@@ -49,7 +49,8 @@ public class CustomerResource implements CustomerService{
 				 + "  " + customerRequest.getEmail()  + "  " + customerRequest.getNumberOfOrders() + "  " + customerRequest.getCreditCardNumber());
 		CustomerActivity customerActivity = new CustomerActivity();
 		return customerActivity.createCustomer(customerRequest.getFirstName(), customerRequest.getLastName(), customerRequest.getUserID(), customerRequest.getCompanyName(), 
-				customerRequest.getAddress(), customerRequest.getPhoneNumber(), customerRequest.getEmail(), customerRequest.getNumberOfOrders(), customerRequest.getCreditCardNumber());
+				customerRequest.getAddress(), customerRequest.getPhoneNumber(), customerRequest.getEmail(), customerRequest.getNumberOfOrders(), customerRequest.getCreditCardNumber(),
+				customerRequest.getPassword());
 	}
 	
 	@DELETE

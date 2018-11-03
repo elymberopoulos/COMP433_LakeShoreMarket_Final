@@ -10,8 +10,8 @@ import representations.BookRequest;
 @WebService
 public interface BookService {
 	   
-	public Set<BookRepresentation> getBooks();
-	public BookRepresentation getBook(String bookId);
+	public Set<BookRepresentation> getAllBooks();
+	public BookRepresentation getBookMatchingName(String bookId);
 	public boolean createBook(BookRequest bookRequest);
    
     //public Response updateBook(BookRequest bookRequest);

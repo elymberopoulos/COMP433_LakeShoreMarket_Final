@@ -28,16 +28,16 @@ public class BookResource implements BookService{
 	@Produces({"application/xml" , "application/json"})
 	@Path("/")
 	//@Cacheable(cc="public, maxAge=3600") example for caching
-	public Set<BookRepresentation> getBooks() {
+	public Set<BookRepresentation> getAllBooks() {
 		System.out.println("GET METHOD Request for all books .............");
 		BookActivity bookActivity = new BookActivity();
-		return bookActivity.getBooks();	
+		return bookActivity.getAllBooks();	
 	}
 	//SEARCH FOR SPECIFIC PRODUCT (BUSINESS MODEL)
 	@GET
 	@Produces({"application/xml" , "application/json"})
 	@Path("/{bookId}")
-	public BookRepresentation getBook(@PathParam("bookId") String id) {
+	public BookRepresentation getBookMatchingName(@PathParam("bookId") String id) {
 		System.out.println("GET METHOD Request from Client with bookRequest String ............." + id);
 		BookActivity bookActivity = new BookActivity();
 		for(BookRepresentation representation: bookActivity.getBooks(id)) {
@@ -45,7 +45,7 @@ public class BookResource implements BookService{
 			System.out.println();
 		}
 		
-		return new BookRepresentation();
+		return bookActivity.getOneBook(id);
 	}
 	
 //	@GET
@@ -86,17 +86,18 @@ public class BookResource implements BookService{
 		return true; //JUST for testing
 	}
 	
-//	@DELETE
-//	@Produces({"application/xml" , "application/json"})
-//	@Path("/book/{bookId}")
-//	public Response deleteBook(@PathParam("bookId") int id) {
-//		System.out.println("Delete METHOD Request from Client with bookRequest String ............." + id);
-//		BookActivity bookActivity = new BookActivity();
-//		String res = bookActivity.deleteBook(id);
-//		if (res.equals("OK")) {
-//			return Response.status(Status.OK).build();
-//		}
-//		return null;
-//	}
+	@DELETE
+	@Produces({"application/xml" , "application/json"})
+	@Path("/{bookId}")
+	public Response deleteBook(@PathParam("bookId") int id) {
+		System.out.println("Delete METHOD Request from Client with bookRequest String ............." + id);
+		BookActivity bookActivity = new BookActivity();
+		String res = bookActivity.deleteBook(id);
+		if (res.equals("OK")) {
+			return Response.status(Status.OK).build();
+		}
+		return null;
+	}
+
 	
 }
