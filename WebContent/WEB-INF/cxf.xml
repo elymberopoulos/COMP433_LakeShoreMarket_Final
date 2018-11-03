@@ -13,7 +13,7 @@
   <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
   	
   <bean id="jacksonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
-      	
+  	     	
   <jaxrs:server name="BookService" address="http://localhost:8081/book">
 		<jaxrs:serviceBeans>
 			<ref bean="bookServiceRest" />
@@ -28,7 +28,7 @@
 		</jaxrs:schemaLocations>
 
 	</jaxrs:server>
-  	<bean id="bookServiceRest" class="resources.BookResource" />
+  	<bean id="bookServiceRest" class="resources.BookResource" />	
   	
   	<jaxrs:server name="CustomerService" address="http://localhost:8081/customer">
 		<jaxrs:serviceBeans>
@@ -42,10 +42,8 @@
 			<jaxrs:schemaLocation>representations.CustomerRequest</jaxrs:schemaLocation>
 			<jaxrs:schemaLocation>representations.CustomerRepresentation</jaxrs:schemaLocation>
 		</jaxrs:schemaLocations>
-
 	</jaxrs:server>
-  	<bean id="customerServiceRest" class="resources.CustomerResource" />
-  	
+  	<bean id="customerServiceRest" class="resources.CustomerResource" />	
   	 <jaxrs:server name="OrderService" address="http://localhost:8081/order">
 		<jaxrs:serviceBeans>
 			<ref bean="orderServiceRest" />
@@ -55,12 +53,13 @@
 		</jaxrs:providers> 
 
 		<jaxrs:schemaLocations>
-			<jaxrs:schemaLocation>representations.CustomerRequest</jaxrs:schemaLocation>
-			<jaxrs:schemaLocation>representations.CustomerRepresentation</jaxrs:schemaLocation>
+			<jaxrs:schemaLocation>representations.OrderRequest</jaxrs:schemaLocation>
+			<jaxrs:schemaLocation>representations.OrderRepresentation</jaxrs:schemaLocation>
 		</jaxrs:schemaLocations>
 
 	</jaxrs:server>
   	<bean id="orderServiceRest" class="resources.OrderResource" />
+  	
   	
   	<jaxrs:server name="PartnerService" address="http://localhost:8081/partner">
 		<jaxrs:serviceBeans>
@@ -77,5 +76,22 @@
 
 	</jaxrs:server>
   	<bean id="partnerServiceRest" class="resources.PartnerResource" />
-  
+  	
+  	<jaxrs:server name="PartnerService1" address="http://localhost:8081/partner/partnerId">
+		<jaxrs:serviceBeans>
+			<ref bean="partnerServiceRest" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jacksonProvider" />
+		</jaxrs:providers> 
+
+		<jaxrs:schemaLocations>
+			<jaxrs:schemaLocation>representations.PartnerRequest</jaxrs:schemaLocation>
+			<jaxrs:schemaLocation>representations.PartnerRepresentation</jaxrs:schemaLocation>
+		</jaxrs:schemaLocations>
+
+	</jaxrs:server>
+  	<bean id="partnerServiceRest1" class="resources.PartnerResource" />
+  	
+  	
 </beans>

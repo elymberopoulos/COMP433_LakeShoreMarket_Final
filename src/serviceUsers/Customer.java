@@ -10,9 +10,10 @@ public class Customer {
 	private String email;
 	private int numberOfOrders;
 	private int creditCardNumber;
+	private String password;
 	
 	public Customer(String firstName, String lastName, String userID, String companyName, String address,
-			int phoneNumber, String email, int numberOfOrders, int creditCardNumber) {
+			int phoneNumber, String email, int numberOfOrders, int creditCardNumber, String password) {
 		
 		//super(firstName, lastName, userID, companyName, address, phoneNumber, email, numberOfOrders);
 		this.firstName = firstName;
@@ -24,7 +25,14 @@ public class Customer {
 		this.email = email;
 		this.numberOfOrders = numberOfOrders; //TODO how to globally increment?
 		this.creditCardNumber = creditCardNumber;
+		this.password = password;
 		
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getPassword() {
+		return password;
 	}
 
 	public String getFirstName() {

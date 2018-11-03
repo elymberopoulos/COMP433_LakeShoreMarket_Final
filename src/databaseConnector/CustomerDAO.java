@@ -14,10 +14,10 @@ public class CustomerDAO {
 	public static void post(Customer customer){
 		String postQuery = "insert into customer "
 				+ "(customerID,customerfirstName,customerlastName,companyName,customerAddress,"
-				+ "customerNumber,customerEmail,customerOrder,creditcardNumber) "
+				+ "customerNumber,customerEmail,customerOrder,creditcardNumber,customerPassword) "
 				+ "values('" + customer.getUserID() + "','" + customer.getFirstName() + "', '" + customer.getLastName() + "','" + customer.getCompanyName() + "','" + 
 				customer.getAddress() + "','" + customer.getPhoneNumber() + "','" + customer.getEmail() + "','" + 
-				customer.getNumberOfOrders() + "', '" + customer.getCreditCardNumber() + "');";
+				customer.getNumberOfOrders() + "', '" + customer.getCreditCardNumber() + "', '" + customer.getPassword() + "');";
 		Connection connection = DBConnect.getDatabaseConnection();
 		try {
 			Statement insertStatement = connection.createStatement();
@@ -41,7 +41,7 @@ public class CustomerDAO {
 				+ "SET customerID ='"+customer.getUserID()+ "',customerfirstName ='"+ customer.getFirstName()+ 
 				"',customerlastName='"+customer.getLastName()+"',companyName='"+customer.getCompanyName()+
 				"',customerAddress='"+customer.getAddress()+"',customerNumber='"+customer.getPhoneNumber()+
-				"',customerEmail='"+customer.getEmail()+"',customerOrder='"+customer.getNumberOfOrders()+
+				"',customerEmail='"+customer.getEmail()+"',customerOrder='"+customer.getNumberOfOrders()+"',customerPassword='"+customer.getPassword()+
 				"' WHERE customerID='"+customer.getUserID()+"';";
 		Connection connection = DBConnect.getDatabaseConnection();
 		try {
@@ -72,7 +72,7 @@ public class CustomerDAO {
 				+ rs.getString("customerAddress") + ", " + rs.getString("customerNumber") + ", " + rs.getString("customerEmail")
 				+ ", " + rs.getString("customerOrder") + ", " + rs.getString("companyName") + ", " + rs.getString("creditcardNumber"));
 				Customer targetCustomer = new Customer(rs.getString("customerfirstName"), rs.getString("customerlastName"), rs.getString("customerID"), rs.getString("companyName"),
-						rs.getString("customerAddress"), rs.getInt("customerNumber"), rs.getString("customerEmail"), rs.getInt("customerOrder"), rs.getInt("creditcardNumber"));
+						rs.getString("customerAddress"), rs.getInt("customerNumber"), rs.getString("customerEmail"), rs.getInt("customerOrder"), rs.getInt("creditcardNumber"), rs.getString("customerPassword"));
 				returnList.add(targetCustomer);
 			}
 		} catch (SQLException e) {

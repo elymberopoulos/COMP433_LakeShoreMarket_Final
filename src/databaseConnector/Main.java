@@ -34,9 +34,9 @@ public class Main {
 	 	Book bookTest1 = new Book("Harry Potter", 15.75, "good", "Alex", 2, 12345678, "JK rowling", "Fantasy");
 		Book bookTest2 = new Book("Modified", 15.75, "good", "Alex", 2, 12345678, "JK rowling", "Fantasy");
 		Customer customer1 = new Customer
-			("Eric", "Steele", "Lymbo2", "Loyola", "26 East Pearson", 81555555, "luc.edu", 1, 222333432);
+			("Eric", "Steele", "Lymbo2", "Loyola", "26 East Pearson", 81555555, "luc.edu", 1, 222333432, "password12");
 		Customer customer2 = new Customer
-				("Steve", "Wright", "Lymbo2", "Intel", "1337 Silicon Valley", 8675309, "silicon@intel", 2, 333345544);
+				("Steve", "Wright", "Lymbo2", "Intel", "1337 Silicon Valley", 8675309, "silicon@intel", 2, 333345544, "password123");
 		Partner partner1 = new Partner
 			("Max", "Hill", "Tech.inc", "27 North Street", 7758094, "max@mail.com", 2, "tony25", 8754909);
 		Partner partner2 = new Partner

@@ -33,8 +33,8 @@ public class PartnerResource implements PartnerService{
 	
 	@GET
 	@Produces({"application/xml" , "application/json"})
-	@Path("/{userId}")
-	public PartnerRepresentation getPartner(@PathParam("partnerID") String id) {
+	@Path("/partnerId/{partnerId}")
+	public PartnerRepresentation getPartner(@PathParam("partnerId") String id) {
 		System.out.println("GET METHOD Request from Client with PartnerRequest String ............." + id);
 		PartnerActivity partnerActivity = new PartnerActivity();
 		return partnerActivity.getPartner(id);
