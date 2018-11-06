@@ -9,7 +9,7 @@ import java.util.Set;
 import products.Book;
 
 import databaseConnector.BookManagerFacade;
-
+import link.Link;
 import representations.BookRepresentation;
 
 /**
@@ -43,6 +43,10 @@ public class BookActivity {
           bookRepresentation.setOrderID(book.getOrderID());
           //now add this representation in the list
           bookRepresentations.add(bookRepresentation);
+          
+          setLinksGetAllBooks(bookRepresentation);
+          
+          
         }
 		return bookRepresentations;
 	}
@@ -127,6 +131,12 @@ public class BookActivity {
 		managerfacade.deleteBook(id);
 		
 		return "OK";
+	}
+	private void setLinksGetAllBooks(BookRepresentation bookRep) {
+		// Set up the activities that can be performed on orders
+		Link ListOrder = new Link("List", "http://localhost:8081/book/");
+		
+		bookRep.setLinks(ListOrder);
 	}
 	
 }
