@@ -14,7 +14,7 @@ public interface BookService {
 	   
 	public Set<BookRepresentation> getAllBooks();
 	public BookRepresentation getBookMatchingName(String bookId);
-	public boolean createBook(BookRequest bookRequest);
+	public BookRepresentation createBook(BookRequest bookRequest, String partnerUserName);
 	public Response deleteBook(int id);
    
     //public Response updateBook(BookRequest bookRequest);

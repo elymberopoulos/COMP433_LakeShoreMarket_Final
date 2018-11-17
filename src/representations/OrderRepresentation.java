@@ -6,7 +6,7 @@ import java.util.List;
 
 import products.Book;
 
-public class OrderRepresentation {
+public class OrderRepresentation extends AbstractRepresentation{
 	
 	private int orderID;
 	private String sqlDate;
