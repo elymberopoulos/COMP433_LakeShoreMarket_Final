@@ -30,7 +30,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		
+//		
 //	 	Book bookTest1 = new Book("Harry Potter", 15.75, "good", "Alex", 2, 12345678, "JK rowling", "Fantasy");
 //		Book bookTest2 = new Book("Modified", 15.75, "good", "Alex", 2, 12345678, "JK rowling", "Fantasy");
 //		Customer customer1 = new Customer
@@ -525,7 +525,7 @@ public class Main {
 		CustomerDAO.put(customer2);
 		//CustomerDAO.get(customer2);
 		CustomerDAO.get();
-		CustomerDAO.delete(customer2);
+		//CustomerDAO.delete(customer2);
 		
 		System.out.println("++++++++++++++++++++++++\n  TESTING partnerDAO NOW  \n+++++++++++++++++++++++++++");
 		
