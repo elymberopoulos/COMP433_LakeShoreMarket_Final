@@ -70,7 +70,7 @@ public class CustomerDAO {
 			while(rs.next()){
 				System.out.println(rs.getString("customerID") + ", " + rs.getString("customerfirstName") + ", " + rs.getString("customerlastName") +", "
 				+ rs.getString("customerAddress") + ", " + rs.getString("customerNumber") + ", " + rs.getString("customerEmail")
-				+ ", " + rs.getString("customerOrder") + ", " + rs.getString("companyName") + ", " + rs.getString("creditcardNumber"));
+				+ ", " + rs.getString("customerOrder") + ", " + rs.getString("companyName") + ", " + rs.getString("creditcardNumber") + ", " + rs.getString("customerPassword"));
 				Customer targetCustomer = new Customer(rs.getString("customerfirstName"), rs.getString("customerlastName"), rs.getString("customerID"), rs.getString("companyName"),
 						rs.getString("customerAddress"), rs.getInt("customerNumber"), rs.getString("customerEmail"), rs.getInt("customerOrder"), rs.getInt("creditcardNumber"), rs.getString("customerPassword"));
 				returnList.add(targetCustomer);

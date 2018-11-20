@@ -15,8 +15,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
+
 import javax.ws.rs.core.CacheControl;
 
+@CrossOriginResourceSharing(allowAllOrigins = true)
 
 @Path("/")
 public class PartnerResource implements PartnerService{
@@ -33,7 +37,7 @@ public class PartnerResource implements PartnerService{
 	
 	@GET
 	@Produces({"application/xml" , "application/json"})
-	@Path("/partnerId/{partnerId}")
+	@Path("/{partnerId}")
 	public PartnerRepresentation getPartner(@PathParam("partnerId") String id) {
 		System.out.println("GET METHOD Request from Client with PartnerRequest String ............." + id);
 		PartnerActivity partnerActivity = new PartnerActivity();
@@ -55,8 +59,8 @@ public class PartnerResource implements PartnerService{
 	
 	@DELETE
 	@Produces({"application/xml" , "application/json"})
-	@Path("/{userId}")
-	public Response deletePartner(@PathParam("userId") String id){
+	@Path("/{partnerId}")
+	public Response deletePartner(@PathParam("partnerId") String id){
 		System.out.println("Delete METHOD Request from Client with PartnerRequest String ............." + id);
 		PartnerActivity partnerActivity = new PartnerActivity();
 		String res = partnerActivity.deletePartner(id);

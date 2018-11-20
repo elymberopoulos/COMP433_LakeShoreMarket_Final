@@ -11,6 +11,14 @@ public class CustomerManagerFacade {
 	public List<Customer> getCustomer(){
 		return CustomerDAO.get();
 	}
+	public Customer getMatchingCustomer(String userName){
+		for(Customer customer: CustomerDAO.get()) {
+			if(customer.getUserID() == userName) {
+				return customer;
+			}
+		}
+		return null;
+	}
 	public Customer postCustomer(String firstName, String lastName, String userID, String companyName, String address,
 			int phoneNumber, String email, int numberOfOrders, int creditCardNumber, String password) {
 		Customer customer = new Customer(firstName, lastName, userID, companyName, address,

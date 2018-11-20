@@ -8,9 +8,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
+
 import javax.ws.rs.core.CacheControl;
 
 import representations.BookRepresentation;
@@ -20,8 +24,9 @@ import representations.PurchaseRepresentation;
 import serviceUsers.Customer;
 import activity.BookActivity;
 import activity.CustomerActivity;
+@CrossOriginResourceSharing(allowAllOrigins = true)
 
-@Path("/book")
+@Path("/")
 public class BookResource implements BookService{
 
 	@GET
@@ -40,10 +45,10 @@ public class BookResource implements BookService{
 	public BookRepresentation getBookMatchingName(@PathParam("bookId") String id) {
 		System.out.println("GET METHOD Request from Client with bookRequest String ............." + id);
 		BookActivity bookActivity = new BookActivity();
-		for(BookRepresentation representation: bookActivity.getBooks(id)) {
-			System.out.println(representation.getProductName() + "Author: " + representation.getAuthor() + "PRICE: " + representation.getProductPrice());
-			System.out.println();
-		}
+//		for(BookRepresentation representation: bookActivity.getBooks(id)) {
+//			System.out.println(representation.getProductName() + "Author: " + representation.getAuthor() + "PRICE: " + representation.getProductPrice());
+//			System.out.println();
+//		}
 		
 		return bookActivity.getOneBook(id);
 	}
@@ -79,11 +84,12 @@ public class BookResource implements BookService{
 	@POST
 	@Produces({"application/xml" , "application/json"})
 	@Path("/")
-	public boolean createBook(BookRequest  bookRequest) {
+	public BookRepresentation createBook(BookRequest bookRequest, @QueryParam("partnerUserName") String partnerUserName) {
 		System.out.println("POST METHOD Request from Client with ............." + bookRequest.getProductName() +" " + bookRequest.getProductPrice() + " " + bookRequest.getProductReview() + " " + bookRequest.getProductOwner() + " " + bookRequest.getProductID() + " " + bookRequest.getIsbn()
 		 + " " + bookRequest.getAuthor() + " " + bookRequest.getCategory());
 		BookActivity bookActivity = new BookActivity();
-		return true; //JUST for testing
+		return bookActivity.createBook(bookRequest.getProductName(), bookRequest.getProductPrice(), bookRequest.getProductReview(), 
+				bookRequest.getProductOwner(), bookRequest.getProductID(), bookRequest.getIsbn(), bookRequest.getAuthor(), bookRequest.getCategory(), partnerUserName);
 	}
 	
 	@DELETE

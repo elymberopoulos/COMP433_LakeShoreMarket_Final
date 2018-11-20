@@ -9,6 +9,8 @@ import java.util.Set;
 
 import databaseConnector.BookManagerFacade;
 import databaseConnector.OrderManagerFacade;
+import link.Link;
+import representations.BookRepresentation;
 import representations.BookRequest;
 import representations.OrderRepresentation;
 import representations.OrderRequest;
@@ -34,9 +36,21 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
           orderRepresentation.setShipped(targetOrder.isShipped());
           orderRepresentation.setStatus(manager.getOrderStatus(targetOrder.getOrderID()));
           //now add this representation in the list
+          setLinksGetAllOrders(orderRepresentation);
           orderRepresentations.add(orderRepresentation);
         }
 		return orderRepresentations;
+	}
+	private void setLinksGetAllOrders(OrderRepresentation orderRep) {
+		// Set up the activities that can be performed on orders
+		Link bookIdLink = new Link("List", "http://localhost:8081/book/bookId/");
+		Link customerRootLink = new Link("List", "http://localhost:8081/customer/");
+		Link orderRootLink = new Link("List", "http://localhost:8081/order/" + orderRep.getOrderID());
+		Link partnerRootLink = new Link("List", "http://localhost:8081/partner/");
+
+
+		
+		orderRep.setLinks(bookIdLink, customerRootLink, orderRootLink, partnerRootLink);
 	}
 	
 	public OrderRepresentation getSpecificOrder(int id) throws ParseException {
@@ -107,7 +121,6 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 	private void convertBookRequestToBooks(List<Book> books, List<BookRequest> orderRequests) {
 	
 		books = new ArrayList<Book>();
-		// TODO Auto-generated method stub
 		for(BookRequest br: orderRequests) {
 			Book book = new Book(br.getProductName(), br.getProductPrice(), "", br.getProductOwner(), br.getProductID(), br.getIsbn(), br.getAuthor(), br.getCategory());
 			books.add(book);
