@@ -64,6 +64,7 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		orderRepresentation.setSqlExpectedShippingDate(order.getSqlExpectedShippingDate());
 		orderRepresentation.setShipped(order.isShipped());
 		orderRepresentation.setStatus(manager.getOrderStatus(order.getOrderID()));
+		orderRepresentation.getBook();
 		
 		return orderRepresentation;
 	}

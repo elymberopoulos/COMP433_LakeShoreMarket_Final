@@ -22,7 +22,6 @@ public class DBConnect {
 		}catch(ClassNotFoundException cnException) {
 			cnException.printStackTrace();
 		}
-		
 		return connection;
 	}
 

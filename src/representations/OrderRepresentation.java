@@ -4,16 +4,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import products.Book;
 
+@XmlRootElement(name = "Order")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "")
 public class OrderRepresentation extends AbstractRepresentation{
 	
 	private int orderID;
 	private String sqlDate;
 	private String sqlExpectedShippingDate;
 	private boolean isShipped;
-	private List<Book> book;
-	private List<Book> orderProducts;
+	
+	@XmlElement(name="books", namespace="")
+	private List<BookRepresentation> orderProducts; //CREATE BOOK REPRESENTATION NOT BOOK
 	private String status;
 	
 	public OrderRepresentation(){}
@@ -50,11 +60,11 @@ public class OrderRepresentation extends AbstractRepresentation{
 		this.sqlExpectedShippingDate = sqlExpectedShippingDate;
 	}
 
-	public List<Book> getBook() {
+	public List<BookRepresentation> getBook() {
 		return orderProducts;
 	}
 
-	public void setBook(List<Book> orderProducts) {
+	public void setBook(List<BookRepresentation> orderProducts) {
 		this.orderProducts = orderProducts;
 	}
 	public String getStatus() {

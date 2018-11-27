@@ -13,6 +13,15 @@ public class PartnerManagerFacade {
 	public List<Partner> getPartner(){
 		return PartnerDAO.get();
 	}
+	
+	public Partner getSpecificPartner(String id) {
+		for(Partner partner: PartnerDAO.get()){
+			if(partner.getUserID() == id) {
+				return partner;
+			}
+		}
+		return null;
+	}
 	public Partner postPartner(String firstName, String lastName, String companyName, String address,
 			int phoneNumber, String email, int numberOfOrders, String userID, int bankAccountNumber) {
 		Partner partner = new Partner(firstName, lastName, companyName, address,

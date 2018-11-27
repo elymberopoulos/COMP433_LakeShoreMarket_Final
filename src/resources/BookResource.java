@@ -84,12 +84,13 @@ public class BookResource implements BookService{
 	@POST
 	@Produces({"application/xml" , "application/json"})
 	@Path("/")
-	public BookRepresentation createBook(BookRequest bookRequest, @QueryParam("partnerUserName") String partnerUserName) {
+	//, @QueryParam("partnerUserName") String partnerUserName
+	public BookRepresentation createBook(BookRequest bookRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + bookRequest.getProductName() +" " + bookRequest.getProductPrice() + " " + bookRequest.getProductReview() + " " + bookRequest.getProductOwner() + " " + bookRequest.getProductID() + " " + bookRequest.getIsbn()
 		 + " " + bookRequest.getAuthor() + " " + bookRequest.getCategory());
 		BookActivity bookActivity = new BookActivity();
 		return bookActivity.createBook(bookRequest.getProductName(), bookRequest.getProductPrice(), bookRequest.getProductReview(), 
-				bookRequest.getProductOwner(), bookRequest.getProductID(), bookRequest.getIsbn(), bookRequest.getAuthor(), bookRequest.getCategory(), partnerUserName);
+				bookRequest.getProductOwner(), bookRequest.getProductID(), bookRequest.getIsbn(), bookRequest.getAuthor(), bookRequest.getCategory());
 	}
 	
 	@DELETE

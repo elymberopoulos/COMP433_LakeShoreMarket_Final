@@ -56,6 +56,7 @@ public class BookDAO {
 			}
 		}
 	}
+
 	public static List<Book> get(){
 		String getQuery = "select * from books;";
 		Connection connection = DBConnect.getDatabaseConnection();
@@ -77,6 +78,30 @@ public class BookDAO {
 		}
 		return returnList;		
 	}
+	public static Book getMatchingBook(String id){
+		
+		String selectQuery = "SELECT * FROM books where bookName = " + "'" + id + "';";
+		Connection connection = DBConnect.getDatabaseConnection();
+		try {
+			Statement getStatement = connection.createStatement();
+			ResultSet rs = getStatement.executeQuery(selectQuery);
+			Book targetBook = new Book(rs.getString("bookName"), rs.getDouble("price"), rs.getString("productReview"), 
+					rs.getString("productOwner"), rs.getInt("bookID"), rs.getInt("isbn"), rs.getString("bookAuthor"), rs.getString("category"));
+			targetBook.setOrderID(rs.getInt("orderID"));
+			return targetBook;
+			
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			if(connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {}
+			}
+		}
+		return null;
+	}
+	
 	public static void delete(Book book){
 		int bookID = book.getProductID();
 		String deleteQuery = "DELETE FROM books where bookID = " + "'" + bookID + "';";

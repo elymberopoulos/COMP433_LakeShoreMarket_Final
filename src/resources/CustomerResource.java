@@ -37,8 +37,8 @@ public class CustomerResource implements CustomerService{
 	
 	@GET
 	@Produces({"application/xml" , "application/json"})
-	@Path("/{userId}")
-	public CustomerRepresentation getCustomer(@PathParam("customerID") String id) {
+	@Path("/{customerId}")
+	public CustomerRepresentation getCustomer(@PathParam("customerId") String id) {
 		System.out.println("GET METHOD Request from Client with customerRequest String ............." + id);
 		CustomerActivity customerActivity = new CustomerActivity();
 		return customerActivity.getCustomer(id);
