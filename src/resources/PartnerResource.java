@@ -57,6 +57,19 @@ public class PartnerResource implements PartnerService{
 				partnerRequest.getUserID(), partnerRequest.getBankAccountNumber());
 	}
 	
+	@POST
+	@Produces({"application/xml" , "application/json"})
+	@Path("/{partnerId}")
+	public PartnerRepresentation updatePartner(PartnerRequest  partnerRequest, @PathParam("partnerId") String id) {
+		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
+				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
+				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getNumberOfOrders() + "  " + partnerRequest.getBankAccountNumber());
+		PartnerActivity PartnerActivity = new PartnerActivity();
+		return PartnerActivity.updatePartner(partnerRequest.getFirstName(), partnerRequest.getLastName(), partnerRequest.getCompanyName(), 
+				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getNumberOfOrders(), 
+				partnerRequest.getUserID(), partnerRequest.getBankAccountNumber());
+	}
+	
 	@DELETE
 	@Produces({"application/xml" , "application/json"})
 	@Path("/{partnerId}")

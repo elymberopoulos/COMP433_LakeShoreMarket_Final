@@ -14,5 +14,6 @@ public interface CustomerService {
 	public Set<CustomerRepresentation> getCustomers();
 	public CustomerRepresentation getCustomer(String id);
 	public CustomerRepresentation createCustomer(CustomerRequest  customerRequest);
+	public CustomerRepresentation updateCustomer(CustomerRequest  customerRequest, String id);
 	public Response deleteCustomer(String id);
 }

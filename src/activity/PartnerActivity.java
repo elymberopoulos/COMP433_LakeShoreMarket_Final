@@ -30,6 +30,8 @@ public class PartnerActivity {
           partnerRepresentation.setUserID(targetPartner.getUserID());
           partnerRepresentation.setFirstName(targetPartner.getFirstName());
           partnerRepresentation.setLastName(targetPartner.getLastName());
+          partnerRepresentation.setPhoneNumber(targetPartner.getPhoneNumber());
+          partnerRepresentation.setBankAccountNumber(targetPartner.getBankAccountNumber());
           
           //now add this representation in the list
           partnerRepresentations.add(partnerRepresentation);
@@ -37,27 +39,48 @@ public class PartnerActivity {
 		return partnerRepresentations;
 	}
 	
-	public PartnerRepresentation getSpecificPartner(String id) {
-        PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
-
-		//Employee emp = dao.getEmployee(id);
-		List<Partner> partner = manager.getPartner();
-		for(Partner targetPartner: partner){
-			if(id == targetPartner.getUserID()){
-		          partnerRepresentation.setUserID(targetPartner.getUserID());
-		          partnerRepresentation.setFirstName(targetPartner.getFirstName());
-		          partnerRepresentation.setLastName(targetPartner.getLastName());
-								
-			}
-		}
-		return partnerRepresentation;
+	public PartnerRepresentation getPartner(String id) {
+		PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
+		Partner partner = manager.getSpecificPartner(id);
 		
+		partnerRepresentation.setFirstName(partner.getFirstName());
+		partnerRepresentation.setLastName(partner.getLastName());
+		partnerRepresentation.setUserID(partner.getUserID());
+		partnerRepresentation.setCompanyName(partner.getCompanyName());
+		partnerRepresentation.setAddress(partner.getAddress());
+		partnerRepresentation.setPhoneNumber(partner.getPhoneNumber());
+		partnerRepresentation.setEmail(partner.getEmail());
+		partnerRepresentation.setNumberOfOrders(partner.getNumberOfOrders());
+		partnerRepresentation.setBankAccountNumber(partner.getBankAccountNumber());
+		return partnerRepresentation;
 	}
+	
 	
 	public PartnerRepresentation createPartner(String firstName, String lastName, String companyName, String address,
 			int phoneNumber, String email, int numberOfOrders, String userID, int bankAccountNumber) {
 		
 		Partner partner = manager.postPartner(firstName, lastName, companyName, address, phoneNumber, email, numberOfOrders, userID, bankAccountNumber);
+		
+		PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
+		partnerRepresentation.setFirstName(partner.getFirstName());
+		partnerRepresentation.setLastName(partner.getLastName());
+		partnerRepresentation.setUserID(partner.getUserID());
+		partnerRepresentation.setCompanyName(partner.getCompanyName());
+		partnerRepresentation.setAddress(partner.getAddress());
+		partnerRepresentation.setPhoneNumber(partner.getPhoneNumber());
+		partnerRepresentation.setEmail(partner.getEmail());
+		partnerRepresentation.setNumberOfOrders(partner.getNumberOfOrders());
+		partnerRepresentation.setBankAccountNumber(partner.getBankAccountNumber());
+
+		
+		
+		return partnerRepresentation;
+	}
+	
+	public PartnerRepresentation updatePartner(String firstName, String lastName, String companyName, String address,
+			int phoneNumber, String email, int numberOfOrders, String userID, int bankAccountNumber) {
+		
+		Partner partner = manager.updatePartner(firstName, lastName, companyName, address, phoneNumber, email, numberOfOrders, userID, bankAccountNumber);
 		
 		PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
 		partnerRepresentation.setFirstName(partner.getFirstName());
@@ -83,22 +106,6 @@ public class PartnerActivity {
 		return "OK";
 	}
 
-	public PartnerRepresentation getPartner(String id) {
-		PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
-		for(Partner partner: manager.getPartner()){
-			if(partner.getUserID() == id){
-				partnerRepresentation.setFirstName(partner.getFirstName());
-				partnerRepresentation.setLastName(partner.getLastName());
-				partnerRepresentation.setUserID(partner.getUserID());
-				partnerRepresentation.setCompanyName(partner.getCompanyName());
-				partnerRepresentation.setAddress(partner.getAddress());
-				partnerRepresentation.setPhoneNumber(partner.getPhoneNumber());
-				partnerRepresentation.setEmail(partner.getEmail());
-				partnerRepresentation.setNumberOfOrders(partner.getNumberOfOrders());
-				partnerRepresentation.setBankAccountNumber(partner.getBankAccountNumber());
-			}
-		}
-		return partnerRepresentation;
-	}
+
 }
 

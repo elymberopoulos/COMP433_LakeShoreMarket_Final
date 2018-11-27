@@ -37,8 +37,8 @@ public class CustomerResource implements CustomerService{
 	
 	@GET
 	@Produces({"application/xml" , "application/json"})
-	@Path("/{userId}")
-	public CustomerRepresentation getCustomer(@PathParam("customerID") String id) {
+	@Path("/{customerId}")
+	public CustomerRepresentation getCustomer(@PathParam("customerId") String id) {
 		System.out.println("GET METHOD Request from Client with customerRequest String ............." + id);
 		CustomerActivity customerActivity = new CustomerActivity();
 		return customerActivity.getCustomer(id);
@@ -53,6 +53,18 @@ public class CustomerResource implements CustomerService{
 				 + "  " + customerRequest.getEmail()  + "  " + customerRequest.getNumberOfOrders() + "  " + customerRequest.getCreditCardNumber());
 		CustomerActivity customerActivity = new CustomerActivity();
 		return customerActivity.createCustomer(customerRequest.getFirstName(), customerRequest.getLastName(), customerRequest.getUserID(), customerRequest.getCompanyName(), 
+				customerRequest.getAddress(), customerRequest.getPhoneNumber(), customerRequest.getEmail(), customerRequest.getNumberOfOrders(), customerRequest.getCreditCardNumber(),
+				customerRequest.getPassword());
+	}
+	@POST
+	@Produces({"application/xml" , "application/json"})
+	@Path("/{customerId}")
+	public CustomerRepresentation updateCustomer(CustomerRequest  customerRequest, @PathParam("customerId") String id) {
+		System.out.println("POST METHOD Request from Client with ............." + customerRequest.getFirstName() + "  " + customerRequest.getLastName()
+				 + "  " +  customerRequest.getUserID()  + "  " + customerRequest.getCompanyName()  + "  " + customerRequest.getAddress()  + "  " + customerRequest.getPhoneNumber()
+				 + "  " + customerRequest.getEmail()  + "  " + customerRequest.getNumberOfOrders() + "  " + customerRequest.getCreditCardNumber());
+		CustomerActivity customerActivity = new CustomerActivity();
+		return customerActivity.updateCustomer(customerRequest.getFirstName(), customerRequest.getLastName(), customerRequest.getUserID(), customerRequest.getCompanyName(), 
 				customerRequest.getAddress(), customerRequest.getPhoneNumber(), customerRequest.getEmail(), customerRequest.getNumberOfOrders(), customerRequest.getCreditCardNumber(),
 				customerRequest.getPassword());
 	}

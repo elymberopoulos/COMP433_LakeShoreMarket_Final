@@ -3,6 +3,7 @@ package resources;
 import java.text.ParseException;
 import java.util.Set;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -55,6 +56,7 @@ public class OrderResource implements OrderService{
 	
 	@POST
 	@Produces({"application/xml" , "application/json"})
+	@Consumes({"application/xml" , "application/json"})
 	@Path("/")
 	public OrderRepresentation createOrder (OrderRequest  orderRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + orderRequest.getOrderID() + "  " + orderRequest.getSqlDate()
