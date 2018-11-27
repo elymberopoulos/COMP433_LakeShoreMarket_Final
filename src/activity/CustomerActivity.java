@@ -123,6 +123,27 @@ public class CustomerActivity {
 
 		customerRep.setLinks(entryPoint, customerRoot);
 	}
+	public CustomerRepresentation updateCustomer(String firstName, String lastName, String userID, String companyName, String address, 
+			int phoneNumber, String email, int numberOfOrders, int creditCardNumber, String password) {
+		
+		Customer customer = manager.updateCustomer(firstName, lastName, userID, companyName, address, phoneNumber, email, numberOfOrders, creditCardNumber, password);
+		
+		CustomerRepresentation customerRepresentation = new CustomerRepresentation();
+		customerRepresentation.setFirstName(customer.getFirstName());
+		customerRepresentation.setLastName(customer.getLastName());
+		customerRepresentation.setUserID(customer.getUserID());
+		customerRepresentation.setCompanyName(customer.getCompanyName());
+		customerRepresentation.setAddress(customer.getAddress());
+		customerRepresentation.setPhoneNumber(customer.getPhoneNumber());
+		customerRepresentation.setEmail(customer.getEmail());
+		customerRepresentation.setNumberOfOrders(customer.getNumberOfOrders());
+		customerRepresentation.setCreditCardNumber(customer.getCreditCardNumber());
+		customerRepresentation.setPassword(customer.getPassword());
+		setLinksCreateCustomer(customerRepresentation);
+		
+		
+		return customerRepresentation;
+	}
 	
 	public String deleteCustomer(String id) {
 		

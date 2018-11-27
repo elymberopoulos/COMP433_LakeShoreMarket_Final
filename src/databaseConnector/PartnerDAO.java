@@ -79,8 +79,31 @@ public class PartnerDAO {
 			e.printStackTrace();
 		}
 		return returnList;
-	
 	}
+	public static Partner getMatchingPartner(String userID){
+		
+		String selectQuery = "SELECT * FROM partner where partnerId = " + "'" + userID + "';";
+		Connection connection = DBConnect.getDatabaseConnection();
+		try {
+			Statement getStatement = connection.createStatement();
+			ResultSet rs = getStatement.executeQuery(selectQuery);
+			rs.next();
+			Partner targetPartner = new Partner(rs.getString("firstName"), rs.getString("lastName"), rs.getString("companyName"), 
+					rs.getString("address"), rs.getInt("phoneNumber"), rs.getString("email"), rs.getInt("numberOfOrders"),rs.getString("partnerId"), rs.getInt("bankAccountNumber"));
+			return targetPartner;
+			
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			if(connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {}
+			}
+		}
+		return null;
+	}
+	
 	public static void delete(Partner partner){
 		String userID = partner.getUserID();
 		String deleteQuery = "delete from partner where partnerId=" + "'" + userID + "';";

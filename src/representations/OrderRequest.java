@@ -4,15 +4,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import products.Book;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "")
 public class OrderRequest {
+	
 	private int orderID;
 	private String sqlDate;
 	private String sqlExpectedShippingDate;
 	//private Date orderDate;
 	//private Date expectedShippingDate;
-	private boolean isShipped;
+	private boolean shipped;
 	private List<BookRequest> orderProducts;
 	private String status;
 	//private List<Book> bookList;//TODO Change this book list to an arrayList with List for static type for more abstraction.
@@ -43,13 +53,13 @@ public class OrderRequest {
 		this.sqlExpectedShippingDate = sqlExpectedShippingDate;
 	}
 
-	public boolean isShipped() {
-		return isShipped;
-	}
-
-	public void setShipped(boolean isShipped) {
-		this.isShipped = isShipped;
-	}
+//	public boolean isShipped() {
+//		return isShipped;
+//	}
+//
+//	public void setShipped(boolean isShipped) {
+//		this.isShipped = isShipped;
+//	}
 
 
 	public List<BookRequest> getOrderProducts() {
@@ -65,6 +75,14 @@ public class OrderRequest {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public boolean isShipped() {
+		return shipped;
+	}
+
+	public void setShipped(boolean shipped) {
+		this.shipped = shipped;
 	}
 	
 /*	

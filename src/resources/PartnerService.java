@@ -14,5 +14,6 @@ public interface PartnerService {
 	public Set<PartnerRepresentation> getPartners();
 	public PartnerRepresentation getPartner(String id);
 	public PartnerRepresentation createPartner(PartnerRequest  partnerRequest);
+	public PartnerRepresentation updatePartner(PartnerRequest  partnerRequest, String id);
 	public Response deletePartner(String id);
 }

@@ -36,13 +36,13 @@ public class Main {
 	 	Book bookTest1 = new Book("Harry Potter", 15.75, "good", "Alex", 2, 12345678, "JK rowling", "Fantasy");
 		Book bookTest2 = new Book("Modified", 15.75, "good", "Alex", 2, 12345678, "JK rowling", "Fantasy");
 		Customer customer1 = new Customer
-			("Eric", "Steele", "Lymbo2", "Loyola", "26 East Pearson", 81555555, "luc.edu", 1, 222333432, "password12");
+			("Biff", "Tannen", "Lymbo2", "Loyola", "26 East Pearson", 81555555, "luc.edu", 1, 222333432, "password12");
 		Customer customer2 = new Customer
 				("Steve", "Wright", "Lymbo45", "Intel", "1337 Silicon Valley", 8675309, "silicon@intel", 2, 333345544, "password123");
 		Partner partner1 = new Partner
-			("Derek", "Hill", "Tech.inc", "27 North Street", 7758094, "max@mail.com", 2, "username123", 8754909);
+			("Darth", "Vader", "darkside.inc", "27 North Street", 7758094, "max@mail.com", 2, "username123", 8754909);
 		Partner partner2 = new Partner
-				("Sam", "Johnson", "Mech.inc", "27 South Street", 8675309, "sam@mail.com", 2, "tony25", 8755709);
+				("Sam", "Johnson", "Mech.inc", "27 South Street", 8675309, "sam@mail.com", 2, "madmax1", 8755709);
 		ArrayList<Book> bookList1 = new ArrayList<Book>();
 		bookList1.add(bookTest1);
 		bookList1.add(bookTest2);
@@ -58,27 +58,27 @@ public class Main {
 //     /*****************************************************************************************
 //      * GET METHOD invoke
 //      *****************************************************************************************/
-//     //GET METHOD BOOK
-//     System.out.println("GET METHOD BOOK!!!!!!!!!!!!.........................................................");
-//     WebClient getClient = WebClient.create("http://localhost:8081", providers);
-//     
-//     //Configuring the CXF logging interceptor for the outgoing message
-//     WebClient.getConfig(getClient).getOutInterceptors().add(new LoggingOutInterceptor());
-//     //Configuring the CXF logging interceptor for the incoming response
-//     WebClient.getConfig(getClient).getInInterceptors().add(new LoggingInInterceptor());
-//     
-//     // change application/xml  to get in xml format
-//     getClient = getClient.accept("application/json").type("application/json").path("/book");
-//     
-//     //The following lines are to show how to log messages without the CXF interceptors
-//     String getRequestURI = getClient.getCurrentURI().toString();
-//     System.out.println("Client GET METHOD Request URI:  " + getRequestURI);
-//     String getRequestHeaders = getClient.getHeaders().toString();
-//     System.out.println("Client GET METHOD Request Headers:  " + getRequestHeaders);
-//     
-//     //to see as raw XML/json
-//     String response = getClient.get(String.class);
-//     System.out.println("GET BOOK METHOD Response: ...." + response);
+     //GET METHOD BOOK
+     System.out.println("GET METHOD BOOK!!!!!!!!!!!!.........................................................");
+     WebClient getClient = WebClient.create("http://localhost:8081", providers);
+     
+     //Configuring the CXF logging interceptor for the outgoing message
+     WebClient.getConfig(getClient).getOutInterceptors().add(new LoggingOutInterceptor());
+     //Configuring the CXF logging interceptor for the incoming response
+     WebClient.getConfig(getClient).getInInterceptors().add(new LoggingInInterceptor());
+     
+     // change application/xml  to get in xml format
+     getClient = getClient.accept("application/json").type("application/json").path("/book/harry");
+     
+     //The following lines are to show how to log messages without the CXF interceptors
+     String getRequestURI = getClient.getCurrentURI().toString();
+     System.out.println("Client GET METHOD Request URI:  " + getRequestURI);
+     String getRequestHeaders = getClient.getHeaders().toString();
+     System.out.println("Client GET METHOD Request Headers:  " + getRequestHeaders);
+     
+     //to see as raw XML/json
+     String response = getClient.get(String.class);
+     System.out.println("GET BOOK METHOD Response: ...." + response);
 //     
 //      
 ////    
@@ -214,18 +214,19 @@ public class Main {
    bookRequest1.setAuthor(bookTest1.getAuthor());
    bookRequest1.setCategory(bookTest1.getCategory());
    List <BookRequest> orderProducts = new ArrayList<BookRequest>();
+   orderProducts.add(bookRequest1);
 	
    String postRequestURIOrder = postClientOrder.getCurrentURI().toString();
    System.out.println("Client POST METHOD Request URI:  " + postRequestURIOrder);
    String postRequestHeadersOrder = postClientOrder.getHeaders().toString();
    System.out.println("Client POST METHOD Request Headers:  " + postRequestHeadersOrder);
    OrderRequest orderRequest = new OrderRequest();
-   orderRequest.setOrderID(orderTest1.getOrderID());
+   orderRequest.setOrderID(16);
    orderRequest.setSqlDate(orderTest1.getSqlDate());
    orderRequest.setSqlExpectedShippingDate(orderTest1.getSqlExpectedShippingDate());
    orderRequest.setShipped(orderTest1.isShipped());
    orderRequest.setOrderProducts(orderProducts);
-   //orderRequest.setStatus(manager.getOrderStatus(orderTest1.getOrderID()));
+   orderRequest.setStatus("ghg");
 
 
    String responsePostOrder =  postClientOrder.post(orderRequest, String.class);
@@ -319,7 +320,7 @@ public class Main {
 //  /*****************************************************************************************
 //   * POST METHOD invoke
 //  *****************************************************************************************/
- 
+// 
 //    //POST METHOD CUSTOMER
 //  System.out.println("POST METHOD CUSTOMER.........................................................");
 //  WebClient postClientCustomer = WebClient.create("http://localhost:8081", providers);
@@ -327,7 +328,7 @@ public class Main {
 //  WebClient.getConfig(postClientCustomer).getInInterceptors().add(new LoggingInInterceptor());
 //           
 //  // change application/xml  to application/json get in json format
-//  postClientCustomer = postClientCustomer.accept("application/xml").type("application/json").path("/customer");
+//  postClientCustomer = postClientCustomer.accept("application/xml").type("application/json").path("/customer/Lymbo2");
 //	
 //  String postRequestURICustomer = postClientCustomer.getCurrentURI().toString();
 //  System.out.println("Client POST METHOD Request URI:  " + postRequestURICustomer);
@@ -439,32 +440,32 @@ public class Main {
 //// *****************************************************************************************/
 ////  
 //// //POST METHOD PARTNER
-// System.out.println("POST METHOD PARTNER.........................................................");
-// WebClient postClientPartner = WebClient.create("http://localhost:8081", providers);
-// WebClient.getConfig(postClientPartner).getOutInterceptors().add(new LoggingOutInterceptor());
-// WebClient.getConfig(postClientPartner).getInInterceptors().add(new LoggingInInterceptor());
-//          
-// // change application/xml  to application/json get in json format
-// postClientPartner = postClientPartner.accept("application/xml").type("application/json").path("/partner");
-//	
-// String postRequestURIPartner = postClientPartner.getCurrentURI().toString();
-// System.out.println("Client POST METHOD Request URI:  " + postRequestURIPartner);
-// String postRequestHeadersPartner = postClientPartner.getHeaders().toString();
-// System.out.println("Client POST METHOD Request Headers:  " + postRequestHeadersPartner);
-// PartnerRequest partnerRequest = new PartnerRequest();
-// partnerRequest.setFirstName(partner1.getFirstName());
-//	partnerRequest.setLastName(partner1.getLastName());
-//	partnerRequest.setUserID(partner1.getUserID());
-//	partnerRequest.setCompanyName(partner1.getCompanyName());
-//	partnerRequest.setAddress(partner1.getAddress());
-//	partnerRequest.setPhoneNumber(partner1.getPhoneNumber());
-//	partnerRequest.setEmail(partner1.getEmail());
-//	partnerRequest.setNumberOfOrders(partner1.getNumberOfOrders());
-//	partnerRequest.setBankAccountNumber(partner1.getBankAccountNumber());
-//
-// 
-//	String responsePostPartner =  postClientPartner.post(partnerRequest, String.class);
-// System.out.println("POST PARTNER METHOD Response ........." + responsePostPartner);
+ System.out.println("POST METHOD PARTNER.........................................................");
+ WebClient postClientPartner = WebClient.create("http://localhost:8081", providers);
+ WebClient.getConfig(postClientPartner).getOutInterceptors().add(new LoggingOutInterceptor());
+ WebClient.getConfig(postClientPartner).getInInterceptors().add(new LoggingInInterceptor());
+          
+ // change application/xml  to application/json get in json format
+ postClientPartner = postClientPartner.accept("application/xml").type("application/json").path("/partner/username123");
+	
+ String postRequestURIPartner = postClientPartner.getCurrentURI().toString();
+ System.out.println("Client POST METHOD Request URI:  " + postRequestURIPartner);
+ String postRequestHeadersPartner = postClientPartner.getHeaders().toString();
+ System.out.println("Client POST METHOD Request Headers:  " + postRequestHeadersPartner);
+ PartnerRequest partnerRequest = new PartnerRequest();
+ partnerRequest.setFirstName(partner1.getFirstName());
+	partnerRequest.setLastName(partner1.getLastName());
+	partnerRequest.setUserID(partner1.getUserID());
+	partnerRequest.setCompanyName(partner1.getCompanyName());
+	partnerRequest.setAddress(partner1.getAddress());
+	partnerRequest.setPhoneNumber(partner1.getPhoneNumber());
+	partnerRequest.setEmail(partner1.getEmail());
+	partnerRequest.setNumberOfOrders(partner1.getNumberOfOrders());
+	partnerRequest.setBankAccountNumber(partner1.getBankAccountNumber());
+
+ 
+	String responsePostPartner =  postClientPartner.post(partnerRequest, String.class);
+ System.out.println("POST PARTNER METHOD Response ........." + responsePostPartner);
 //// 
 //// /*****************************************************************************************
 ////  * GET METHOD invoke for all partners
@@ -546,7 +547,7 @@ public class Main {
 //		Partner partner2 = new Partner
 //				("Sam", "Johnson", "Mech.inc", "27 South Street", 8675309, "sam@mail.com", 2, "tony25", 8755709);
 //		PartnerDAO.post(partner1);
-		PartnerDAO.post(partner2);
+		//PartnerDAO.post(partner2);
 
 //		PartnerDAO.get();
 //		PartnerDAO.put(partner2);

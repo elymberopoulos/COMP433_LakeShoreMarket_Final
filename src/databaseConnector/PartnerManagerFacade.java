@@ -15,12 +15,13 @@ public class PartnerManagerFacade {
 	}
 	
 	public Partner getSpecificPartner(String id) {
-		for(Partner partner: PartnerDAO.get()){
-			if(partner.getUserID() == id) {
-				return partner;
-			}
-		}
-		return null;
+		return PartnerDAO.getMatchingPartner(id);
+//		for(Partner partner: PartnerDAO.get()){
+//			if(partner.getUserID() == id) {
+//				return partner;
+//			}
+//		}
+//		return null;
 	}
 	public Partner postPartner(String firstName, String lastName, String companyName, String address,
 			int phoneNumber, String email, int numberOfOrders, String userID, int bankAccountNumber) {

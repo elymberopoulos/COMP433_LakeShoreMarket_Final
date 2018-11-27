@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import products.Book;
 import serviceUsers.Customer;
 
 public class CustomerDAO {
@@ -79,6 +80,29 @@ public class CustomerDAO {
 			e.printStackTrace();
 		}
 		return returnList;
+	}
+	public static Customer getMatchingCustomer(String userID){
+		
+		String selectQuery = "SELECT * FROM customer where customerID = " + "'" + userID + "';";
+		Connection connection = DBConnect.getDatabaseConnection();
+		try {
+			Statement getStatement = connection.createStatement();
+			ResultSet rs = getStatement.executeQuery(selectQuery);
+			rs.next();
+			Customer targetCustomer = new Customer(rs.getString("customerfirstName"), rs.getString("customerlastName"), rs.getString("customerID"), rs.getString("companyName"),
+					rs.getString("customerAddress"), rs.getInt("customerNumber"), rs.getString("customerEmail"), rs.getInt("customerOrder"), rs.getInt("creditcardNumber"), rs.getString("customerPassword"));
+			return targetCustomer;
+			
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			if(connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {}
+			}
+		}
+		return null;
 	}
 	public static void delete(Customer customer){
 		String userID = customer.getUserID();

@@ -56,6 +56,18 @@ public class CustomerResource implements CustomerService{
 				customerRequest.getAddress(), customerRequest.getPhoneNumber(), customerRequest.getEmail(), customerRequest.getNumberOfOrders(), customerRequest.getCreditCardNumber(),
 				customerRequest.getPassword());
 	}
+	@POST
+	@Produces({"application/xml" , "application/json"})
+	@Path("/{customerId}")
+	public CustomerRepresentation updateCustomer(CustomerRequest  customerRequest, @PathParam("customerId") String id) {
+		System.out.println("POST METHOD Request from Client with ............." + customerRequest.getFirstName() + "  " + customerRequest.getLastName()
+				 + "  " +  customerRequest.getUserID()  + "  " + customerRequest.getCompanyName()  + "  " + customerRequest.getAddress()  + "  " + customerRequest.getPhoneNumber()
+				 + "  " + customerRequest.getEmail()  + "  " + customerRequest.getNumberOfOrders() + "  " + customerRequest.getCreditCardNumber());
+		CustomerActivity customerActivity = new CustomerActivity();
+		return customerActivity.updateCustomer(customerRequest.getFirstName(), customerRequest.getLastName(), customerRequest.getUserID(), customerRequest.getCompanyName(), 
+				customerRequest.getAddress(), customerRequest.getPhoneNumber(), customerRequest.getEmail(), customerRequest.getNumberOfOrders(), customerRequest.getCreditCardNumber(),
+				customerRequest.getPassword());
+	}
 	
 	@DELETE
 	@Produces({"application/xml" , "application/json"})

@@ -85,6 +85,7 @@ public class BookDAO {
 		try {
 			Statement getStatement = connection.createStatement();
 			ResultSet rs = getStatement.executeQuery(selectQuery);
+			rs.next();
 			Book targetBook = new Book(rs.getString("bookName"), rs.getDouble("price"), rs.getString("productReview"), 
 					rs.getString("productOwner"), rs.getInt("bookID"), rs.getInt("isbn"), rs.getString("bookAuthor"), rs.getString("category"));
 			targetBook.setOrderID(rs.getInt("orderID"));

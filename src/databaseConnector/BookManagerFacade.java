@@ -16,7 +16,6 @@ public class BookManagerFacade {
 
 	public BookManagerFacade(){}
 	
-/////////////////////////////// BOOK //////////////////////////////
 	public List<Book> getBooks(){
 		return BookDAO.get();
 	}
@@ -32,14 +31,6 @@ public class BookManagerFacade {
 //		return resultList;
 //	}
 	public Book getOneBook(String bookName) {
-//		//if(checkProductAvailability(bookName)) {
-//		for(Book book: BookDAO.get()) {
-//			if(book.getProductName() == bookName) {
-//				return book;
-//			}
-//		}
-//		//}
-//		return null;
 		Book result = BookDAO.getMatchingBook(bookName);
 		return result;
 	}
