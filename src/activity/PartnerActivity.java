@@ -1,5 +1,6 @@
 package activity;
 
+import representations.BookRepresentation;
 import representations.PartnerRepresentation;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Set;
 import serviceUsers.Partner;
 import databaseConnector.BookManagerFacade;
 import databaseConnector.PartnerManagerFacade;
+import link.Link;
 
 
 public class PartnerActivity {
@@ -32,11 +34,23 @@ public class PartnerActivity {
           partnerRepresentation.setLastName(targetPartner.getLastName());
           partnerRepresentation.setPhoneNumber(targetPartner.getPhoneNumber());
           partnerRepresentation.setBankAccountNumber(targetPartner.getBankAccountNumber());
-          
+          setLinksGetAllPartners(partnerRepresentation);
           //now add this representation in the list
           partnerRepresentations.add(partnerRepresentation);
         }
 		return partnerRepresentations;
+	}
+	
+	private void setLinksGetAllPartners(PartnerRepresentation partnerRep) {
+		// Set up the activities that can be performed on orders
+		Link partnerIdLink = new Link("List", "http://localhost:8081/partner/" + partnerRep.getUserID());
+		Link partnerRootLink = new Link("List", "http://localhost:8081/partner/");
+
+//		Link orderRootLink = new Link("List", "http://localhost:8081/order/");
+
+
+		
+		partnerRep.setLinks(partnerIdLink, partnerRootLink);
 	}
 	
 	public PartnerRepresentation getPartner(String id) {

@@ -78,6 +78,27 @@ public class BookDAO {
 		}
 		return returnList;		
 	}
+	public static List<Book> getBooksByOrderID(int orderID){
+		String getQuery = "SELECT * FROM books where orderID = " + "'" + orderID + "';";
+		Connection connection = DBConnect.getDatabaseConnection();
+		List<Book> returnList = new ArrayList<Book>();
+		try {
+			Statement getStatement = connection.createStatement();
+			ResultSet rs = getStatement.executeQuery(getQuery);
+			while(rs.next()){
+				System.out.println(rs.getString("bookID") + ", " + rs.getString("bookName") + ", "
+				+ rs.getString("bookAuthor") + ", " + rs.getString("category") + ", " + rs.getString("isbn") + ", " + 
+						rs.getString("price") + ", " + rs.getString("productReview") + ", " + rs.getString("productOwner") + ", " + rs.getInt("orderID"));
+				Book targetBook = new Book(rs.getString("bookName"), rs.getDouble("price"), rs.getString("productReview"), 
+						rs.getString("productOwner"), rs.getInt("bookID"), rs.getInt("isbn"), rs.getString("bookAuthor"), rs.getString("category"));
+				targetBook.setOrderID(rs.getInt("orderID"));
+				returnList.add(targetBook);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return returnList;		
+	}
 	public static Book getMatchingBook(String id){
 		
 		String selectQuery = "SELECT * FROM books where bookName = " + "'" + id + "';";

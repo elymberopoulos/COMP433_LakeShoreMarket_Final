@@ -44,7 +44,7 @@ public class BookActivity {
           //now add this representation in the list
           bookRepresentations.add(bookRepresentation);
           
-          //setLinksGetAllBooks(bookRepresentation);
+          setLinksGetAllBooks(bookRepresentation);
           
           
         }
@@ -52,57 +52,21 @@ public class BookActivity {
 	}
 	private void setLinksGetAllBooks(BookRepresentation bookRep) {
 		// Set up the activities that can be performed on orders
-		Link bookIdLink = new Link("List", "http://localhost:8081/book/bookId/");
+		Link bookIdLink = new Link("List", "http://localhost:8081/book/" + bookRep.getProductName());
 		Link customerRootLink = new Link("List", "http://localhost:8081/customer/");
-		Link orderRootLink = new Link("List", "http://localhost:8081/order/");
 		Link partnerRootLink = new Link("List", "http://localhost:8081/partner/");
+
+//		Link orderRootLink = new Link("List", "http://localhost:8081/order/");
 
 
 		
-		bookRep.setLinks(bookIdLink, customerRootLink, orderRootLink, partnerRootLink);
+		bookRep.setLinks(bookIdLink, customerRootLink, partnerRootLink);
 	}
-	
-//	public List<BookRepresentation> getBooks(String bookName) {//GETS ALL BOOKS WITH MATCHING NAMES
-//		
-//		List<Book> matchingBooks = managerfacade.getSpecificBook(bookName);
-//		List<BookRepresentation> returnedRepresentations = new ArrayList<BookRepresentation>();
-//		
-//		for(Book book: matchingBooks) {
-//		BookRepresentation bookRepresentation = new BookRepresentation();
-//			bookRepresentation.setProductName(book.getProductName());
-//	        bookRepresentation.setProductPrice(book.getProductPrice());
-//	        bookRepresentation.setProductReview(book.getProductReview());
-//	        bookRepresentation.setProductOwner(book.getProductOwner());
-//	        bookRepresentation.setProductID(book.getProductID());
-//	        bookRepresentation.setIsbn(book.getIsbn());                 
-//	        bookRepresentation.setAuthor(book.getAuthor());
-//	        bookRepresentation.setCategory(book.getCategory());
-//	        //bookRepresentation.setOrderID(book.getOrderID());
-//	        returnedRepresentations.add(bookRepresentation);
-//		}
-//		return returnedRepresentations;
-//	}
-//	public BookRepresentation getOneBook(String name) {//GETS ONE BOOK WITH MATCHING NAME
-//		
-//		Book book = managerfacade.getOneBook(name);
-//		BookRepresentation bookRepresentation = new BookRepresentation();
-//		
-//		bookRepresentation.setProductName(book.getProductName());
-//        bookRepresentation.setProductPrice(book.getProductPrice());
-//        bookRepresentation.setProductReview(book.getProductReview());
-//        bookRepresentation.setProductOwner(book.getProductOwner());
-//        bookRepresentation.setProductID(book.getProductID());
-//        bookRepresentation.setIsbn(book.getIsbn());                 
-//        bookRepresentation.setAuthor(book.getAuthor());
-//        bookRepresentation.setCategory(book.getCategory());
-//        setLinksGetOneBook(bookRepresentation);
-//        return bookRepresentation;
-//	}
 
 	
 	public BookRepresentation getOneBook(String name) { //Checks availability and returns representation if available
 		BookRepresentation bookRepresentation = new BookRepresentation();
-		//if(managerfacade.checkProductAvailability(name)) {
+		if(managerfacade.checkProductAvailability(name)) {
 			Book book = managerfacade.getOneBook(name);
 			bookRepresentation.setProductName(book.getProductName());
 	        bookRepresentation.setProductPrice(book.getProductPrice());
@@ -113,19 +77,57 @@ public class BookActivity {
 	        bookRepresentation.setAuthor(book.getAuthor());
 	        bookRepresentation.setCategory(book.getCategory());
 	        
-	        //setLinksGetOneBook(bookRepresentation);
-//		}
-//		else {
-//			bookRepresentation.setProductName(name + " (IS NOT AVAILABLE)");
-//		}
+	        setLinksGetOneBook(bookRepresentation);
+		}
+		else {
+			bookRepresentation.setProductName(name + " (IS NOT AVAILABLE)");
+		}
         return bookRepresentation;	
 	}
 	private void setLinksGetOneBook(BookRepresentation bookRep) {
 		// Set up the activities that can be performed on orders
 		Link orderRootLink = new Link("List", "http://localhost:8081/order/"); //POST
-		Link entryPoint = new Link("List", "http://localhost:8081/book/"); //GET all books
-		bookRep.setLinks(orderRootLink);
+		Link bookStore = new Link("List", "http://localhost:8081/book/"); //GET all books
+		bookRep.setLinks(orderRootLink, bookStore);
 	}
+	
+	public List<BookRepresentation> getAllBooksByOrderID(int orderID) {//GETS ALL BOOKS WITH SPECIFIC ORDER_ID
+	
+		List<Book> books = new ArrayList<Book>();
+		List<BookRepresentation> bookRepresentations = new ArrayList<BookRepresentation>();
+		books = managerfacade.getBooksByOrderID(orderID);
+		
+		
+		Iterator<Book> it = books.iterator();
+		while(it.hasNext()) {
+          Book book = (Book)it.next();
+          BookRepresentation bookRepresentation = new BookRepresentation();
+          bookRepresentation.setProductName(book.getProductName());
+          bookRepresentation.setProductPrice(book.getProductPrice());
+          bookRepresentation.setProductReview(book.getProductReview());
+          bookRepresentation.setProductOwner(book.getProductOwner());
+          bookRepresentation.setProductID(book.getProductID());
+          bookRepresentation.setIsbn(book.getIsbn());                 
+          bookRepresentation.setAuthor(book.getAuthor());
+          bookRepresentation.setCategory(book.getCategory());
+          bookRepresentation.setOrderID(book.getOrderID());
+          //now add this representation in the list
+          bookRepresentations.add(bookRepresentation);
+          
+          setLinksGetAllBooksByOrderID(bookRepresentation);
+          
+          
+        }
+		return bookRepresentations;
+	}
+	private void setLinksGetAllBooksByOrderID(BookRepresentation bookRep) {
+		Link bookIdLink = new Link("List", "http://localhost:8081/book/" + bookRep.getProductName());
+		Link customerRootLink = new Link("List", "http://localhost:8081/customer/");
+		Link partnerRootLink = new Link("List", "http://localhost:8081/partner/");
+
+		bookRep.setLinks(bookIdLink, customerRootLink, partnerRootLink);
+	}
+	
 	
 	public BookRepresentation createBook (String productName, double productPrice, String productReview, 
 			String productOwner, int productID, int isbn, String author, String category){		
@@ -142,14 +144,14 @@ public class BookActivity {
         bookRepresentation.setCategory(book.getCategory());
         //bookRepresentation.setOrderID(book.getOrderID());
         
-        //setLinksCreateBook(bookRepresentation, partnerId);
+        setLinksCreateBook(bookRepresentation);
 		return bookRepresentation;
 	}
-	private void setLinksCreateBook(BookRepresentation bookRep, String partnerUserName) {
+	private void setLinksCreateBook(BookRepresentation bookRep) {
 		// Set up the activities that can be performed on orders
-		Link partnerIdLink = new Link("List", "http://localhost:8081/partner/" + partnerUserName);
-		Link entryPoint = new Link("List", "http://localhost:8081/book/"); //GET all books
-		bookRep.setLinks(partnerIdLink, entryPoint);
+		Link partnerIdLink = new Link("List", "http://localhost:8081/partner/");//ADD PARTNER ID ON CLIENT SIDE {CONCATENATE}
+		Link bookStore = new Link("List", "http://localhost:8081/book/"); //GET all books
+		bookRep.setLinks(partnerIdLink, bookStore);
 	}
 	
 	public String deleteBook(int id) {
