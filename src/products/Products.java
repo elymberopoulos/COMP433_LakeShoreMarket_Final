@@ -14,7 +14,7 @@ public class Products {
 		this.productPrice = productPrice;
 		this.productReview = productReview;
 		this.productOwner = productOwner;
-		this.productID = productID;
+		this.productID = BookIDNumberGenerator.getNewID();
 	}
 
 	public String getProductName() {
