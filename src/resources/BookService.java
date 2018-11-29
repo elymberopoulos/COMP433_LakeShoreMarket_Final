@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.jws.WebService;
@@ -14,6 +15,7 @@ public interface BookService {
 	   
 	public Set<BookRepresentation> getAllBooks();
 	public BookRepresentation getBookMatchingName(String bookId);
+	public List<BookRepresentation> getBookByOrderID(int orderID);
 	public BookRepresentation createBook(BookRequest bookRequest);
 	public Response deleteBook(int id);
    

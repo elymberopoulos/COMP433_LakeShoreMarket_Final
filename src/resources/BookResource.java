@@ -53,6 +53,20 @@ public class BookResource implements BookService{
 		return bookActivity.getOneBook(id);
 	}
 	
+	@GET
+	@Produces({"application/xml" , "application/json"})
+	@Path("/order_id")
+	public List<BookRepresentation> getBookByOrderID(@QueryParam("order_id") int orderID) {
+		System.out.println("GET METHOD Request from Client with bookRequest ORDER_ID ............." + orderID);
+		BookActivity bookActivity = new BookActivity();
+//		for(BookRepresentation representation: bookActivity.getBooks(id)) {
+//			System.out.println(representation.getProductName() + "Author: " + representation.getAuthor() + "PRICE: " + representation.getProductPrice());
+//			System.out.println();
+//		}
+		
+		return bookActivity.getAllBooksByOrderID(orderID);
+	}
+	
 //	@GET
 //	@Produces({"application/xml" , "application/json"})
 //	@Path("/book/{bookId}")

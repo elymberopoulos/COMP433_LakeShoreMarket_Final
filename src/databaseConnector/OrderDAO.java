@@ -19,12 +19,12 @@ public class OrderDAO {
 				+ "VALUES ("+order.getOrderID()+", "+order.getSqlDate()+", "+order.getSqlExpectedShippingDate()+", " +
 				order.isShipped()+ ", '" + order.getStatus() +"');";
 		for(Book book: order.getBook()) {BookDAO.post(book);}
-		
+
 		Connection connection = DBConnect.getDatabaseConnection();
 		try {
 			Statement insertStatement = connection.createStatement();
 			insertStatement.executeLargeUpdate(postQuery);
-			
+
 		}catch(SQLException se) {
 			se.printStackTrace();
 

@@ -105,9 +105,9 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		//Order order = manager.postOrder(orderID, sqlDate, sqlExpectedShippingDate, isShipped);
 		List<BookRequest> orderRequests = orderProducts.getOrderProducts();
 		List<Book> books = new ArrayList<Book>();
-		convertBookRequestToBooks(books,orderRequests);
+		List<Book> convertedBooks = convertBookRequestToBooks(books,orderRequests);
 
-		Order order = manager.postOrder(books);
+		Order order = manager.postOrder(convertedBooks);
 
 		OrderRepresentation orderRepresentation = new OrderRepresentation();
 		orderRepresentation.setOrderID(order.getOrderID());
@@ -119,13 +119,14 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		return orderRepresentation;
 	}
 	
-	private void convertBookRequestToBooks(List<Book> books, List<BookRequest> orderRequests) {
+	private List<Book> convertBookRequestToBooks(List<Book> books, List<BookRequest> orderRequests) {
 	
 		books = new ArrayList<Book>();
 		for(BookRequest br: orderRequests) {
 			Book book = new Book(br.getProductName(), br.getProductPrice(), "", br.getProductOwner(), br.getProductID(), br.getIsbn(), br.getAuthor(), br.getCategory());
 			books.add(book);
 		}
+		return books;
 	
 	}
 	

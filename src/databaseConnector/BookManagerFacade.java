@@ -19,6 +19,10 @@ public class BookManagerFacade {
 	public List<Book> getBooks(){
 		return BookDAO.get();
 	}
+	public List<Book> getBooksByOrderID(int orderID){
+		return BookDAO.getBooksByOrderID(orderID);
+	}
+	
 //	public List<Book> getSpecificBook(String name){
 //		List<Book> resultList = new ArrayList<Book>();
 //		if(checkProductAvailability(name)) {
@@ -36,13 +40,12 @@ public class BookManagerFacade {
 	}
 	
 	public boolean checkProductAvailability(String productName) {
-		boolean result = false;
-		for(Book targetBook: BookDAO.get()) {
-			if(targetBook.getProductName() == productName) {
-				result = true;
-			}
+		if(BookDAO.getMatchingBook(productName) != null) {
+			return true;
 		}
-		return result;
+		else {
+			return false;
+		}
 	}
 	
 	public Book postBook(String productName, double productPrice, String productReview, 
