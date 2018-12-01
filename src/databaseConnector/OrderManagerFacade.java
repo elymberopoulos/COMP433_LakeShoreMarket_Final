@@ -32,7 +32,7 @@ public class OrderManagerFacade {
 		Order targetOrder = OrderDAO.getOrderByNumber(orderID);
 		if(currentDate.after(format.parse(targetOrder.getSqlExpectedShippingDate()))) {
 			shipOrder(orderID);
-			return "Shipped";
+			//return "Shipped";
 		}
 //		for(Order order: OrderDAO.get()) {
 //			if(order.getOrderID() == orderID && currentDate.after(format.parse(order.getSqlExpectedShippingDate()))) {

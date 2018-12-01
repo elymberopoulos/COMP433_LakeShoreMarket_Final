@@ -20,7 +20,7 @@ public class OrderRepresentation extends AbstractRepresentation{
 	private int orderID;
 	private String sqlDate;
 	private String sqlExpectedShippingDate;
-	private boolean isShipped;
+	private boolean shipped;
 	
 	@XmlElement(name="books", namespace="")
 	private List<BookRepresentation> orderProducts; //CREATE BOOK REPRESENTATION NOT BOOK
@@ -36,13 +36,13 @@ public class OrderRepresentation extends AbstractRepresentation{
 		this.orderID = orderID;
 	}
 
-	public boolean isShipped() {
-		return isShipped;
-	}
-
-	public void setShipped(boolean isShipped) {
-		this.isShipped = isShipped;
-	}
+//	public boolean isShipped() {
+//		return isShipped;
+//	}
+//
+//	public void setShipped(boolean isShipped) {
+//		this.isShipped = isShipped;
+//	}
 
 	public String getSqlDate() {
 		return sqlDate;
@@ -73,6 +73,22 @@ public class OrderRepresentation extends AbstractRepresentation{
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public boolean isShipped() {
+		return shipped;
+	}
+
+	public void setShipped(boolean shipped) {
+		this.shipped = shipped;
+	}
+
+	public List<BookRepresentation> getOrderProducts() {
+		return orderProducts;
+	}
+
+	public void setOrderProducts(List<BookRepresentation> orderProducts) {
+		this.orderProducts = orderProducts;
 	}
 
 /*

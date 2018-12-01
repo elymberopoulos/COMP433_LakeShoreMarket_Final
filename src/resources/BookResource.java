@@ -53,12 +53,11 @@ public class BookResource implements BookService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
 
-	@Override
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/")
@@ -78,7 +77,7 @@ public class BookResource implements BookService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
@@ -102,7 +101,7 @@ public class BookResource implements BookService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
@@ -110,7 +109,7 @@ public class BookResource implements BookService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/order_id")
-	@LocalPreflight
+	
 	public List<BookRepresentation> getBookByOrderID(@QueryParam("order_id") int orderID) {
 		System.out.println("GET METHOD Request from Client with bookRequest ORDER_ID ............." + orderID);
 		BookActivity bookActivity = new BookActivity();
@@ -130,7 +129,7 @@ public class BookResource implements BookService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
@@ -139,7 +138,7 @@ public class BookResource implements BookService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/inventory/owner_id")
-	@LocalPreflight
+	
 	public List<BookRepresentation> getBookByOwnerID(@QueryParam("owner_id") String ownerID) {
 		System.out.println("GET METHOD Request from Client with bookRequest ORDER_ID ............." + ownerID);
 		BookActivity bookActivity = new BookActivity();
@@ -156,7 +155,7 @@ public class BookResource implements BookService{
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
-	@LocalPreflight
+	
 	//, @QueryParam("partnerUserName") String partnerUserName
 	public BookRepresentation createBook(BookRequest bookRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + bookRequest.getProductName() +" " + bookRequest.getProductPrice() + " " + bookRequest.getProductReview() + " " + bookRequest.getProductOwner() + " " + bookRequest.getProductID() + " " + bookRequest.getIsbn()
@@ -174,7 +173,7 @@ public class BookResource implements BookService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
@@ -182,7 +181,7 @@ public class BookResource implements BookService{
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/submit_review/review/{bookName}")
-	@LocalPreflight
+	
 	public Response reviewBook(@PathParam("bookName") String bookName, @QueryParam("review") String bookReview) {
 		System.out.println("UPDATE review method");
 		BookActivity bookActivity = new BookActivity();
@@ -197,7 +196,7 @@ public class BookResource implements BookService{
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{bookId}")
-	@LocalPreflight
+	
 	public Response deleteBook(@PathParam("bookId") int id) {
 		System.out.println("Delete METHOD Request from Client with bookRequest String ............." + id);
 		BookActivity bookActivity = new BookActivity();
