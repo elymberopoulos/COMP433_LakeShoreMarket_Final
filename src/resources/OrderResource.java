@@ -6,28 +6,54 @@ import java.util.Set;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.cxf.rs.security.cors.CorsHeaderConstants;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
+import org.apache.cxf.rs.security.cors.LocalPreflight;
 
 import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.MediaType;
 
 import representations.OrderRepresentation;
 import representations.OrderRequest;
 import activity.OrderActivity;
-@CrossOriginResourceSharing(allowAllOrigins = true)
+@CrossOriginResourceSharing(
+		allowAllOrigins = true,
+		allowCredentials = true,
+		allowHeaders = {
+				"'Accept': 'application/json'",
+				"'Content-Type': 'application/json'"
+		})
 
 @Path("/")
 public class OrderResource implements OrderService{
 
-	@GET
-	@Produces({"application/xml" , "application/json"})
+	@OPTIONS
+	@LocalPreflight
 	@Path("/")
+	public Response options() {
+		
+		return Response.ok()
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET, DELETE")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
+				.build();	
+	}
+	
+	@Override
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/")
+	@LocalPreflight
 	//@Cacheable(cc="public, maxAge=3600") example for caching
 	public Set<OrderRepresentation> getAllOrders() throws ParseException {
 		System.out.println("GET METHOD Request for all Orders .............");
@@ -35,39 +61,47 @@ public class OrderResource implements OrderService{
 		return orderActivity.getOrders();	
 	}
 	
-	@GET
-	@Produces({"application/xml" , "application/json"})
+	@OPTIONS
+	@LocalPreflight
 	@Path("/{orderId}")
+	public Response idOptions(@PathParam("orderId") String orderID	) {
+		
+		return Response.ok()
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET, DELETE")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
+				.build();	
+	}
+	
+	@Override
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/{orderId}")
+	@LocalPreflight
 	public OrderRepresentation getOrder(@PathParam("orderId") int id) throws ParseException {
 		System.out.println("GET METHOD Request from Client with OrderRequest String ............." + id);
 		OrderActivity orderActivity = new OrderActivity();
 		return orderActivity.getSpecificOrder(id);
 		}
-
-//	@GET
-//	@Produces({"application/xml" , "application/json"})
-//	@Path("/{orderId}")
-//	public String refundOrder(@PathParam("orderId") int id) throws ParseException {
-//		System.out.println("REFUND ORDER REQUEST." + id);
-//		OrderActivity orderActivity = new OrderActivity();
-//		return orderActivity.requestRefund(id);
-//		}
 	
-	
+	@Override
 	@POST
-	@Produces({"application/xml" , "application/json"})
-	@Consumes({"application/xml" , "application/json"})
+	@Produces({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
-	public OrderRepresentation createOrder (OrderRequest  orderRequest) {
+	@LocalPreflight
+	public OrderRepresentation createOrder (OrderRequest  orderRequest, @QueryParam("customerId") String customerID) {
 		System.out.println("POST METHOD Request from Client with ............." + orderRequest.getOrderID() + "  " + orderRequest.getSqlDate()
 		+ " " + orderRequest.getSqlExpectedShippingDate() + " " + orderRequest.isShipped());		
 		OrderActivity orderActivity = new OrderActivity(); 
-		return orderActivity.createOrder(orderRequest);
+		return orderActivity.createOrder(orderRequest, customerID);
 	}
-	
+	@Override
 	@DELETE
-	@Produces({"application/xml" , "application/json"})
+	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{orderId}")
+	@LocalPreflight
 	public Response deleteOrder(@PathParam("orderId") int id) {
 		System.out.println("Delete METHOD Request from Client with OrderRequest String ............." + id);
 		OrderActivity orderActivity = new OrderActivity();

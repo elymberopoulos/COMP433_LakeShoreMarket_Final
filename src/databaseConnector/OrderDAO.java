@@ -11,6 +11,7 @@ import java.util.List;
 
 import order.Order;
 import products.Book;
+import serviceUsers.Partner;
 
 public class OrderDAO {
 	
@@ -70,9 +71,28 @@ public class OrderDAO {
 				} catch (SQLException e) {}
 			}
 		}
-		return returnList;
-		
+		return returnList;	
 	}
+	
+	public static Order getOrderByNumber(int orderID){
+		String getQuery = "SELECT * FROM placedOrder where orderID = " + "'" + orderID + "';";
+		Connection connection = DBConnect.getDatabaseConnection();
+		List<Book> orderProducts = BookDAO.getBooksByOrderID(orderID);
+		
+		try {
+			Statement getStatement = connection.createStatement();
+			ResultSet rs = getStatement.executeQuery(getQuery);
+			rs.next();
+			Order targetOrder = new Order(rs.getInt("orderID"), orderProducts, rs.getString("orderDate"), rs.getString("expectedShippingDate"));
+			targetOrder.setStatus(rs.getString("orderCurrentStatus"));
+			return targetOrder;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;		
+	}
+	
 	public static void put(Order order){
 		String putQuery = "UPDATE placedOrder "
 				+ "SET orderID ='"+order.getOrderID()+ "',orderDate ='"+ order.getSqlDate()+ 

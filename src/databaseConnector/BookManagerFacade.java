@@ -23,20 +23,17 @@ public class BookManagerFacade {
 		return BookDAO.getBooksByOrderID(orderID);
 	}
 	
-//	public List<Book> getSpecificBook(String name){
-//		List<Book> resultList = new ArrayList<Book>();
-//		if(checkProductAvailability(name)) {
-//		for(Book targetBook: BookDAO.get()) {
-//			if(targetBook.getProductName() == name) {
-//				resultList.add(targetBook);
-//			}
-//		}
-//		}
-//		return resultList;
-//	}
+	public List<Book> getBooksByOwnerID(String ownerID){
+		return BookDAO.getBooksByOwnerID(ownerID);
+	}
+
 	public Book getOneBook(String bookName) {
 		Book result = BookDAO.getMatchingBook(bookName);
 		return result;
+	}
+	
+	public static void updateBookReview(String bookName, String bookReview) {
+		BookDAO.bookReviewUpdate(bookName, bookReview);
 	}
 	
 	public boolean checkProductAvailability(String productName) {
