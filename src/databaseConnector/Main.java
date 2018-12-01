@@ -85,32 +85,32 @@ public class Main {
 ////    /*****************************************************************************************
 ////     * POST METHOD invoke
 ////    *****************************************************************************************/
-////    //POST METHOD BOOK
-//    System.out.println("POST METHOD BOOK.........................................................");
-//    WebClient postClient = WebClient.create("http://localhost:8081", providers);
-//    WebClient.getConfig(postClient).getOutInterceptors().add(new LoggingOutInterceptor());
-//    WebClient.getConfig(postClient).getInInterceptors().add(new LoggingInInterceptor());
-//             
-//    // change application/xml  to application/json get in json format
-//    postClient = postClient.accept("application/xml").type("application/json").path("/book");
-// 	
-//    String postRequestURI = postClient.getCurrentURI().toString();
-//    System.out.println("Client POST METHOD Request URI:  " + postRequestURI);
-//    String postRequestHeaders = postClient.getHeaders().toString();
-//    System.out.println("Client POST METHOD Request Headers:  " + postRequestHeaders);
-//    BookRequest bookRequest = new BookRequest();
-//    bookRequest.setProductName(bookTest1.getProductName());
-//    bookRequest.setProductPrice(bookTest1.getProductPrice());
-//    bookRequest.setProductReview(bookTest1.getProductReview());
-//    bookRequest.setProductOwner(bookTest1.getProductOwner());
-//    bookRequest.setProductID(bookTest1.getProductID());
-//    bookRequest.setIsbn(bookTest1.getIsbn());
-//    bookRequest.setAuthor(bookTest1.getAuthor());
-//    bookRequest.setCategory(bookTest1.getCategory());
-//
-//    
-// 	String responsePost =  postClient.post(bookRequest, String.class);
-//    System.out.println("POST BOOK METHOD Response ........." + responsePost);
+//    //POST METHOD BOOK
+    System.out.println("POST METHOD BOOK.........................................................");
+    WebClient postClient = WebClient.create("http://localhost:8081", providers);
+    WebClient.getConfig(postClient).getOutInterceptors().add(new LoggingOutInterceptor());
+    WebClient.getConfig(postClient).getInInterceptors().add(new LoggingInInterceptor());
+             
+    // change application/xml  to application/json get in json format
+    postClient = postClient.accept("application/xml").type("application/json").path("/book");
+ 	
+    String postRequestURI = postClient.getCurrentURI().toString();
+    System.out.println("Client POST METHOD Request URI:  " + postRequestURI);
+    String postRequestHeaders = postClient.getHeaders().toString();
+    System.out.println("Client POST METHOD Request Headers:  " + postRequestHeaders);
+    BookRequest bookRequest = new BookRequest();
+    bookRequest.setProductName(bookTest1.getProductName());
+    bookRequest.setProductPrice(bookTest1.getProductPrice());
+    bookRequest.setProductReview(bookTest1.getProductReview());
+    bookRequest.setProductOwner(bookTest1.getProductOwner());
+    bookRequest.setProductID(bookTest1.getProductID());
+    bookRequest.setIsbn(bookTest1.getIsbn());
+    bookRequest.setAuthor(bookTest1.getAuthor());
+    bookRequest.setCategory(bookTest1.getCategory());
+
+    
+ 	String responsePost =  postClient.post(bookRequest, String.class);
+    System.out.println("POST BOOK METHOD Response ........." + responsePost);
 ////    
 ////      /*****************************************************************************************
 ////     * GET METHOD invoke for all books, orders, customers, partners
@@ -203,7 +203,7 @@ public class Main {
    WebClient.getConfig(postClientOrder).getInInterceptors().add(new LoggingInInterceptor());
             
    // change application/xml  to application/json get in json format
-   postClientOrder = postClientOrder.accept("application/xml").type("application/json").path("/order");
+   postClientOrder = postClientOrder.accept("application/json").type("application/json").path("/order");
    BookRequest bookRequest1 = new BookRequest();
    bookRequest1.setProductName(bookTest1.getProductName());
    bookRequest1.setProductPrice(bookTest1.getProductPrice());

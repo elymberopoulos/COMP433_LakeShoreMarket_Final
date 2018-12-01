@@ -13,6 +13,8 @@
   <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
   	
   <bean id="jacksonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
+  <bean id="cors-filter" class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
+  
   	     	
   <jaxrs:server name="BookService" address="http://localhost:8081/book">
 		<jaxrs:serviceBeans>
@@ -20,6 +22,7 @@
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jacksonProvider" />
+			<ref bean="cors-filter" />
 		</jaxrs:providers> 
 
 		<jaxrs:schemaLocations>
@@ -36,6 +39,7 @@
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jacksonProvider" />
+			<ref bean="cors-filter" />
 		</jaxrs:providers> 
 
 		<jaxrs:schemaLocations>
@@ -50,6 +54,7 @@
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jacksonProvider" />
+			<ref bean="cors-filter" />
 		</jaxrs:providers> 
 
 		<jaxrs:schemaLocations>
@@ -67,6 +72,7 @@
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jacksonProvider" />
+			<ref bean="cors-filter" />
 		</jaxrs:providers> 
 
 		<jaxrs:schemaLocations>
@@ -78,5 +84,7 @@
   	<bean id="partnerServiceRest" class="resources.PartnerResource" />
   	
   	
-  	
+ 
+   
+	
 </beans>

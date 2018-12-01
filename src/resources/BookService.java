@@ -14,8 +14,10 @@ import representations.BookRequest;
 public interface BookService {
 	   
 	public Set<BookRepresentation> getAllBooks();
-	public BookRepresentation getBookMatchingName(String bookId);
+	public BookRepresentation getBookMatchingName(String bookId, String customerID);
 	public List<BookRepresentation> getBookByOrderID(int orderID);
+	public List<BookRepresentation> getBookByOwnerID(String ownerID);
+	public Response reviewBook(String bookName, String bookReview);
 	public BookRepresentation createBook(BookRequest bookRequest);
 	public Response deleteBook(int id);
    

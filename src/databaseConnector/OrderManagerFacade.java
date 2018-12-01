@@ -20,52 +20,32 @@ public class OrderManagerFacade {
 		OrderDAO.updateStatus(newStatus, orderID);
 	}
 	
-	public Order getSpecificOrder(int orderID) {        //Iterate through both tables and if orderID match is found then iterate through books
-		List<Book> ordersBooks = new ArrayList<Book>(); //and match order id with book order id returning a list of books to the order constructor
-		Order targetResult = new Order();    			//recreating the order object from the DB.
-		for(Order order: OrderDAO.get()) {
-			if(order.getOrderID() == orderID) {
-				targetResult.setOrderID(order.getOrderID());
-				targetResult.setSqlDate(order.getSqlDate());
-				targetResult.setSqlExpectedShippingDate(order.getSqlExpectedShippingDate());
-				targetResult.setStatus(order.getStatus());
-				for(Book bookInOrder: BookDAO.get()) {
-					if(bookInOrder.getOrderID() == orderID) {
-						ordersBooks.add(bookInOrder);
-					}
-					else {
-						System.out.println("ORDER FOUND BUT NO BOOKS MATCH ORDER ID.");
-						return targetResult;
-					}
-				}
-			}
-			else {
-				System.out.println("NO ORDER VALUE FOUND IN DATABASE.");
-				return null;
-			}
-		}
-		targetResult.setBook(ordersBooks);
-		return targetResult;
+	public Order getSpecificOrder(int orderID) {
+		
+		return OrderDAO.getOrderByNumber(orderID);
 	}
 	
-	public boolean checkShippingStatus(int orderID) throws ParseException {
+	public String checkShippingStatus(int orderID) throws ParseException {
 		Date currentDate = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		format.format(currentDate);
-		boolean isShipped = false;
-		for(Order order: OrderDAO.get()) {
-			if(order.getOrderID() == orderID && currentDate.after(format.parse(order.getSqlExpectedShippingDate()))) {
-				isShipped = true;
-				shipOrder(order);
-			}
+		Order targetOrder = OrderDAO.getOrderByNumber(orderID);
+		if(currentDate.after(format.parse(targetOrder.getSqlExpectedShippingDate()))) {
+			shipOrder(orderID);
+			return "Shipped";
 		}
-		return isShipped;
+//		for(Order order: OrderDAO.get()) {
+//			if(order.getOrderID() == orderID && currentDate.after(format.parse(order.getSqlExpectedShippingDate()))) {
+//				isShipped = true;
+//				shipOrder(order);
+//			}
+//		}
+		return "Not Shipped";
 	}
-	private void shipOrder(Order order) {
-		int orderID = order.getOrderID();
-		OrderDAO.updateStatus("SHIPPED", orderID);
-		order.setShipped(true);
-		order.setStatus("SHIPPED");	
+	private void shipOrder(int orderID) {
+		OrderDAO.updateStatus("Shipped", orderID);
+//		order.setShipped(true);
+//		order.setStatus("SHIPPED");	
 	}
 	
 	public String getOrderStatus(int orderID) throws ParseException {

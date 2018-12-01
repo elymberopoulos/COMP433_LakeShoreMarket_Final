@@ -10,6 +10,7 @@ import java.util.Set;
 import databaseConnector.BookManagerFacade;
 import databaseConnector.OrderManagerFacade;
 import link.Link;
+import representations.AbstractRepresentation;
 import representations.BookRepresentation;
 import representations.BookRequest;
 import representations.OrderRepresentation;
@@ -43,29 +44,27 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 	}
 	private void setLinksGetAllOrders(OrderRepresentation orderRep) {
 		// Set up the activities that can be performed on orders
-		Link bookIdLink = new Link("List", "http://localhost:8081/book/bookId/");
-		Link customerRootLink = new Link("List", "http://localhost:8081/customer/");
-		Link orderRootLink = new Link("List", "http://localhost:8081/order/" + orderRep.getOrderID());
+//		Link bookIdLink = new Link("List", "http://localhost:8081/book/bookId/");
+//		Link customerRootLink = new Link("List", "http://localhost:8081/customer/");
+		Link orderLink = new Link("List", "http://localhost:8081/order/" + orderRep.getOrderID());
 		Link partnerRootLink = new Link("List", "http://localhost:8081/partner/");
 
 
 		
-		orderRep.setLinks(bookIdLink, customerRootLink, orderRootLink, partnerRootLink);
+		orderRep.setLinks(orderLink, partnerRootLink);
 	}
 	
 	public OrderRepresentation getSpecificOrder(int id) throws ParseException {
 		
         OrderRepresentation orderRepresentation = new OrderRepresentation();
-
+        //BookRepresentation bookRep = new BookRepresentation();
 		Order order = manager.getSpecificOrder(id);
-
 		orderRepresentation.setOrderID(order.getOrderID());
 		orderRepresentation.setSqlDate(order.getSqlDate());
 		orderRepresentation.setSqlExpectedShippingDate(order.getSqlExpectedShippingDate());
 		orderRepresentation.setShipped(order.isShipped());
 		orderRepresentation.setStatus(manager.getOrderStatus(order.getOrderID()));
-		orderRepresentation.getBook();
-		
+
 		return orderRepresentation;
 	}
 	/*
@@ -100,12 +99,12 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		return orderRepresentation;
 	}
 	*/
-	public OrderRepresentation createOrder(OrderRequest orderProducts) {
+	public OrderRepresentation createOrder(OrderRequest orderProducts, String customerID) {
 		
 		//Order order = manager.postOrder(orderID, sqlDate, sqlExpectedShippingDate, isShipped);
 		List<BookRequest> orderRequests = orderProducts.getOrderProducts();
 		List<Book> books = new ArrayList<Book>();
-		List<Book> convertedBooks = convertBookRequestToBooks(books,orderRequests);
+		List<Book> convertedBooks = convertBookRequestToBooks(books,orderRequests,customerID);
 
 		Order order = manager.postOrder(convertedBooks);
 
@@ -119,10 +118,11 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		return orderRepresentation;
 	}
 	
-	private List<Book> convertBookRequestToBooks(List<Book> books, List<BookRequest> orderRequests) {
+	private List<Book> convertBookRequestToBooks(List<Book> books, List<BookRequest> orderRequests,String customerID) {
 	
 		books = new ArrayList<Book>();
 		for(BookRequest br: orderRequests) {
+			br.setProductOwner(customerID);
 			Book book = new Book(br.getProductName(), br.getProductPrice(), "", br.getProductOwner(), br.getProductID(), br.getIsbn(), br.getAuthor(), br.getCategory());
 			books.add(book);
 		}
@@ -130,15 +130,15 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 	
 	}
 	
-	public String requestRefund(int orderID) throws ParseException {
-		if(manager.checkShippingStatus(orderID)) {
-			return "ORDER HAS BEEN SHIPPED. RETURN VIA MAIL ONCE IT ARRIVES.";
-		}
-		else {
-			manager.setDBStatusWithDAO("REFUNDED", orderID);
-			return "ORDER CANCELLED AND REFUND HAS BEEN PROCESSED.";
-		}
-	}
+//	public String requestRefund(int orderID) throws ParseException {
+//		if(manager.checkShippingStatus(orderID)) {
+//			return "ORDER HAS BEEN SHIPPED. RETURN VIA MAIL ONCE IT ARRIVES.";
+//		}
+//		else {
+//			manager.setDBStatusWithDAO("REFUNDED", orderID);
+//			return "ORDER CANCELLED AND REFUND HAS BEEN PROCESSED.";
+//		}
+//	}
 	public String cancelOrder(int orderID) {
 		manager.setDBStatusWithDAO("CANCELLED", orderID);
 		return "ORDER IS CANCELLED";
