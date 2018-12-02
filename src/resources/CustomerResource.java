@@ -23,6 +23,8 @@ import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.apache.cxf.rs.security.cors.LocalPreflight;
 
 import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
 @CrossOriginResourceSharing(
@@ -35,7 +37,10 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/")
 public class CustomerResource implements CustomerService{
-
+	
+	@Context
+	private HttpHeaders header;
+	
 	@OPTIONS
 	@LocalPreflight
 	@Path("/")
@@ -44,12 +49,12 @@ public class CustomerResource implements CustomerService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
 	
-	@Override
+	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/")
@@ -69,11 +74,11 @@ public class CustomerResource implements CustomerService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
-	@Override
+	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{customerId}")
@@ -82,12 +87,12 @@ public class CustomerResource implements CustomerService{
 		CustomerActivity customerActivity = new CustomerActivity();
 		return customerActivity.getCustomer(customerID);
 	}
-	@Override
+	
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
-	@LocalPreflight
+	
 	public CustomerRepresentation createCustomer(CustomerRequest  customerRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + customerRequest.getFirstName() + "  " + customerRequest.getLastName()
 				 + "  " +  customerRequest.getUserID()  + "  " + customerRequest.getCompanyName()  + "  " + customerRequest.getAddress()  + "  " + customerRequest.getPhoneNumber()
@@ -97,12 +102,12 @@ public class CustomerResource implements CustomerService{
 				customerRequest.getAddress(), customerRequest.getPhoneNumber(), customerRequest.getEmail(), customerRequest.getNumberOfOrders(), customerRequest.getCreditCardNumber(),
 				customerRequest.getPassword());
 	}
-	@Override
+	
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/{customerId}")
-	@LocalPreflight
+	
 	public CustomerRepresentation updateCustomer(CustomerRequest  customerRequest, @PathParam("customerId") String customerID) {
 		System.out.println("POST METHOD Request from Client with ............." + customerRequest.getFirstName() + "  " + customerRequest.getLastName()
 				 + "  " +  customerRequest.getUserID()  + "  " + customerRequest.getCompanyName()  + "  " + customerRequest.getAddress()  + "  " + customerRequest.getPhoneNumber()
@@ -112,11 +117,11 @@ public class CustomerResource implements CustomerService{
 				customerRequest.getAddress(), customerRequest.getPhoneNumber(), customerRequest.getEmail(), customerRequest.getNumberOfOrders(), customerRequest.getCreditCardNumber(),
 				customerRequest.getPassword());
 	}
-	@Override
+	
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{customerId}")
-	@LocalPreflight
+	
 	public Response deleteCustomer(@PathParam("customerId") String id){
 		System.out.println("Delete METHOD Request from Client with customerRequest String ............." + id);
 		CustomerActivity customerActivity = new CustomerActivity();

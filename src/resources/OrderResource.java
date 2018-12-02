@@ -20,6 +20,8 @@ import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.apache.cxf.rs.security.cors.LocalPreflight;
 
 import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
 import representations.OrderRepresentation;
@@ -35,7 +37,9 @@ import activity.OrderActivity;
 
 @Path("/")
 public class OrderResource implements OrderService{
-
+	@Context
+	private HttpHeaders header;
+	
 	@OPTIONS
 	@LocalPreflight
 	@Path("/")

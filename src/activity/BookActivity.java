@@ -82,9 +82,10 @@ public class BookActivity {
 	}
 	private void setLinksGetOneBook(BookRepresentation bookRep, String customerID) {
 		// Set up the activities that can be performed on orders
-		Link orderRootLink = new Link("List", "http://localhost:8081/order/" + customerID); //POST //QUERY change product owner to customer																							//this books owner is set to current customerID from session(BUYING)
-		Link bookStore = new Link("List", "http://localhost:8081/book/"); //GET all books
-		bookRep.setLinks(orderRootLink, bookStore);
+		Link orderRootLink = new Link("List", "http://localhost:8081/order?customerId=" + customerID); //POST //QUERY change product owner to customer																							//this books owner is set to current customerID from session(BUYING)
+		//Link bookStore = new Link("List", "http://localhost:8081/book/"); //GET all books
+		Link bookReviewLink = new Link("List", "http://localhost:8081/book/submit_review/review/" + bookRep.getProductName() + "?review=");
+		bookRep.setLinks(orderRootLink, bookReviewLink);
 	}
 	
 	public List<BookRepresentation> getAllBooksByOrderID(int orderID) {//GETS ALL BOOKS WITH SPECIFIC ORDER_ID
@@ -179,7 +180,7 @@ public class BookActivity {
         bookRepresentation.setCategory(book.getCategory());
         //bookRepresentation.setOrderID(book.getOrderID());
         
-        //setLinksCreateBook(bookRepresentation);
+        setLinksCreateBook(bookRepresentation);
 		return bookRepresentation;
 	}
 	//STATE MACHINE DEAD END. BACK TO PROFILE PAGE

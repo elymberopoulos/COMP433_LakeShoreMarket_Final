@@ -65,6 +65,8 @@ public class CustomerActivity {
 			customerRepresentation.setEmail(customer.getEmail());
 			customerRepresentation.setNumberOfOrders(customer.getNumberOfOrders());
 			customerRepresentation.setCreditCardNumber(customer.getCreditCardNumber());
+			customerRepresentation.setPassword(customer.getPassword());
+
 			setLinksGetCustomer(customerRepresentation);
 			return customerRepresentation;
 	}

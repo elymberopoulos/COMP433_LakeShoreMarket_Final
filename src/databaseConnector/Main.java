@@ -40,9 +40,9 @@ public class Main {
 		Customer customer2 = new Customer
 				("Steve", "Wright", "Lymbo45", "Intel", "1337 Silicon Valley", 8675309, "silicon@intel", 2, 333345544, "password123");
 		Partner partner1 = new Partner
-			("Darth", "Vader", "darkside.inc", "27 North Street", 7758094, "max@mail.com", 2, "username123", 8754909);
+			("Darth", "Vader", "darkside.inc", "27 North Street", 7758094, "max@mail.com", "password2", "username123", 8754909);
 		Partner partner2 = new Partner
-				("Sam", "Johnson", "Mech.inc", "27 South Street", 8675309, "sam@mail.com", 2, "madmax1", 8755709);
+				("Sam", "Johnson", "Mech.inc", "27 South Street", 8675309, "sam@mail.com", "password1", "madmax1", 8755709);
 		ArrayList<Book> bookList1 = new ArrayList<Book>();
 		bookList1.add(bookTest1);
 		bookList1.add(bookTest2);
@@ -471,7 +471,7 @@ public class Main {
 	partnerRequest.setAddress(partner1.getAddress());
 	partnerRequest.setPhoneNumber(partner1.getPhoneNumber());
 	partnerRequest.setEmail(partner1.getEmail());
-	partnerRequest.setNumberOfOrders(partner1.getNumberOfOrders());
+	partnerRequest.setPartnerPassword(partner1.getPartnerPassword());
 	partnerRequest.setBankAccountNumber(partner1.getBankAccountNumber());
 
  

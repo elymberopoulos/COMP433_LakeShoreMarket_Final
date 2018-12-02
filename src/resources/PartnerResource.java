@@ -23,6 +23,8 @@ import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.apache.cxf.rs.security.cors.LocalPreflight;
 
 import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
 @CrossOriginResourceSharing(
@@ -35,6 +37,8 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/")
 public class PartnerResource implements PartnerService{
+	@Context
+	private HttpHeaders header;
 	
 	@OPTIONS
 	@LocalPreflight
@@ -44,7 +48,7 @@ public class PartnerResource implements PartnerService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
@@ -69,7 +73,7 @@ public class PartnerResource implements PartnerService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
@@ -93,10 +97,10 @@ public class PartnerResource implements PartnerService{
 	public PartnerRepresentation createPartner(PartnerRequest  partnerRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
-				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getNumberOfOrders() + "  " + partnerRequest.getBankAccountNumber());
+				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getPartnerPassword() + "  " + partnerRequest.getBankAccountNumber());
 		PartnerActivity PartnerActivity = new PartnerActivity();
 		return PartnerActivity.createPartner(partnerRequest.getFirstName(), partnerRequest.getLastName(), partnerRequest.getCompanyName(), 
-				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getNumberOfOrders(), 
+				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getPartnerPassword(), 
 				partnerRequest.getUserID(), partnerRequest.getBankAccountNumber());
 	}
 	@Override
@@ -108,10 +112,10 @@ public class PartnerResource implements PartnerService{
 	public PartnerRepresentation updatePartner(PartnerRequest  partnerRequest, @PathParam("partnerId") String id) {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
-				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getNumberOfOrders() + "  " + partnerRequest.getBankAccountNumber());
+				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getPartnerPassword() + "  " + partnerRequest.getBankAccountNumber());
 		PartnerActivity PartnerActivity = new PartnerActivity();
 		return PartnerActivity.updatePartner(partnerRequest.getFirstName(), partnerRequest.getLastName(), partnerRequest.getCompanyName(), 
-				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getNumberOfOrders(), 
+				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getPartnerPassword(), 
 				partnerRequest.getUserID(), partnerRequest.getBankAccountNumber());
 	}
 	@Override

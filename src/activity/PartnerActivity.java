@@ -64,16 +64,16 @@ public class PartnerActivity {
 		partnerRepresentation.setAddress(partner.getAddress());
 		partnerRepresentation.setPhoneNumber(partner.getPhoneNumber());
 		partnerRepresentation.setEmail(partner.getEmail());
-		partnerRepresentation.setNumberOfOrders(partner.getNumberOfOrders());
+		partnerRepresentation.setPartnerPassword(partner.getPartnerPassword());
 		partnerRepresentation.setBankAccountNumber(partner.getBankAccountNumber());
 		return partnerRepresentation;
 	}
 	
 	
 	public PartnerRepresentation createPartner(String firstName, String lastName, String companyName, String address,
-			int phoneNumber, String email, int numberOfOrders, String userID, int bankAccountNumber) {
+			int phoneNumber, String email, String partnerPassword, String userID, int bankAccountNumber) {
 		
-		Partner partner = manager.postPartner(firstName, lastName, companyName, address, phoneNumber, email, numberOfOrders, userID, bankAccountNumber);
+		Partner partner = manager.postPartner(firstName, lastName, companyName, address, phoneNumber, email, partnerPassword, userID, bankAccountNumber);
 		
 		PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
 		partnerRepresentation.setFirstName(partner.getFirstName());
@@ -83,7 +83,7 @@ public class PartnerActivity {
 		partnerRepresentation.setAddress(partner.getAddress());
 		partnerRepresentation.setPhoneNumber(partner.getPhoneNumber());
 		partnerRepresentation.setEmail(partner.getEmail());
-		partnerRepresentation.setNumberOfOrders(partner.getNumberOfOrders());
+		partnerRepresentation.setPartnerPassword(partner.getPartnerPassword());
 		partnerRepresentation.setBankAccountNumber(partner.getBankAccountNumber());
 
 		
@@ -92,9 +92,9 @@ public class PartnerActivity {
 	}
 	
 	public PartnerRepresentation updatePartner(String firstName, String lastName, String companyName, String address,
-			int phoneNumber, String email, int numberOfOrders, String userID, int bankAccountNumber) {
+			int phoneNumber, String email, String partnerPassword, String userID, int bankAccountNumber) {
 		
-		Partner partner = manager.updatePartner(firstName, lastName, companyName, address, phoneNumber, email, numberOfOrders, userID, bankAccountNumber);
+		Partner partner = manager.updatePartner(firstName, lastName, companyName, address, phoneNumber, email, partnerPassword, userID, bankAccountNumber);
 		
 		PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
 		partnerRepresentation.setFirstName(partner.getFirstName());
@@ -104,7 +104,7 @@ public class PartnerActivity {
 		partnerRepresentation.setAddress(partner.getAddress());
 		partnerRepresentation.setPhoneNumber(partner.getPhoneNumber());
 		partnerRepresentation.setEmail(partner.getEmail());
-		partnerRepresentation.setNumberOfOrders(partner.getNumberOfOrders());
+		partnerRepresentation.setPartnerPassword(partner.getPartnerPassword());
 		partnerRepresentation.setBankAccountNumber(partner.getBankAccountNumber());
 
 		
