@@ -16,8 +16,9 @@ public class PartnerRequest {
 	private String address;
 	private int phoneNumber;
 	private String email;
-	private int numberOfOrders;
+	//private int numberOfOrders;
 	private int bankAccountNumber;
+	private String partnerPassword;
 	
 	public PartnerRequest(){}
 	
@@ -77,13 +78,13 @@ public class PartnerRequest {
 		this.email = email;
 	}
 
-	public int getNumberOfOrders() {
-		return numberOfOrders;
-	}
-
-	public void setNumberOfOrders(int numberOfOrders) {
-		this.numberOfOrders = numberOfOrders;
-	}
+//	public int getNumberOfOrders() {
+//		return numberOfOrders;
+//	}
+//
+//	public void setNumberOfOrders(int numberOfOrders) {
+//		this.numberOfOrders = numberOfOrders;
+//	}
 
 	public int getBankAccountNumber() {
 		return bankAccountNumber;
@@ -91,6 +92,14 @@ public class PartnerRequest {
 
 	public void setBankAccountNumber(int bankAccountNumber) {
 		this.bankAccountNumber = bankAccountNumber;
+	}
+
+	public String getPartnerPassword() {
+		return partnerPassword;
+	}
+
+	public void setPartnerPassword(String partnerPassword) {
+		this.partnerPassword = partnerPassword;
 	}
 
 

@@ -10,9 +10,10 @@ public class Partner {
 	private String email;
 	private int numberOfOrders;
 	private int bankAccountNumber;
+	private String partnerPassword;
 	
 	public Partner(String firstName, String lastName, String companyName, String address,
-			int phoneNumber, String email, int numberOfOrders, String userID, int bankAccountNumber) {
+			int phoneNumber, String email, String partnerPassword, String userID, int bankAccountNumber) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userID = userID;
@@ -20,8 +21,9 @@ public class Partner {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
-		this.numberOfOrders = numberOfOrders;
+		//this.numberOfOrders = numberOfOrders;
 		this.bankAccountNumber = bankAccountNumber;
+		this.partnerPassword = partnerPassword;
 		
 	}
 
@@ -95,6 +97,14 @@ public class Partner {
 
 	public void setBankAccountNumber(int bankAccountNumber) {
 		this.bankAccountNumber = bankAccountNumber;
+	}
+
+	public String getPartnerPassword() {
+		return partnerPassword;
+	}
+
+	public void setPartnerPassword(String partnerPassword) {
+		this.partnerPassword = partnerPassword;
 	}
 
 }

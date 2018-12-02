@@ -97,10 +97,10 @@ public class PartnerResource implements PartnerService{
 	public PartnerRepresentation createPartner(PartnerRequest  partnerRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
-				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getNumberOfOrders() + "  " + partnerRequest.getBankAccountNumber());
+				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getPartnerPassword() + "  " + partnerRequest.getBankAccountNumber());
 		PartnerActivity PartnerActivity = new PartnerActivity();
 		return PartnerActivity.createPartner(partnerRequest.getFirstName(), partnerRequest.getLastName(), partnerRequest.getCompanyName(), 
-				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getNumberOfOrders(), 
+				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getPartnerPassword(), 
 				partnerRequest.getUserID(), partnerRequest.getBankAccountNumber());
 	}
 	@Override
@@ -112,10 +112,10 @@ public class PartnerResource implements PartnerService{
 	public PartnerRepresentation updatePartner(PartnerRequest  partnerRequest, @PathParam("partnerId") String id) {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
-				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getNumberOfOrders() + "  " + partnerRequest.getBankAccountNumber());
+				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getPartnerPassword() + "  " + partnerRequest.getBankAccountNumber());
 		PartnerActivity PartnerActivity = new PartnerActivity();
 		return PartnerActivity.updatePartner(partnerRequest.getFirstName(), partnerRequest.getLastName(), partnerRequest.getCompanyName(), 
-				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getNumberOfOrders(), 
+				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getPartnerPassword(), 
 				partnerRequest.getUserID(), partnerRequest.getBankAccountNumber());
 	}
 	@Override

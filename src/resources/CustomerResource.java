@@ -74,7 +74,7 @@ public class CustomerResource implements CustomerService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}

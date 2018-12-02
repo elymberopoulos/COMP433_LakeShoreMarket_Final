@@ -16,7 +16,8 @@ public class PartnerRepresentation extends AbstractRepresentation{
 	private String address;
 	private int phoneNumber;
 	private String email;
-	private int numberOfOrders;
+	//private int numberOfOrders;
+	private String partnerPassword;
 	private int bankAccountNumber;
 	
 	public PartnerRepresentation(){}
@@ -77,13 +78,13 @@ public class PartnerRepresentation extends AbstractRepresentation{
 		this.email = email;
 	}
 
-	public int getNumberOfOrders() {
-		return numberOfOrders;
-	}
-
-	public void setNumberOfOrders(int numberOfOrders) {
-		this.numberOfOrders = numberOfOrders;
-	}
+//	public int getNumberOfOrders() {
+//		return numberOfOrders;
+//	}
+//
+//	public void setNumberOfOrders(int numberOfOrders) {
+//		this.numberOfOrders = numberOfOrders;
+//	}
 
 	public int getBankAccountNumber() {
 		return bankAccountNumber;
@@ -91,6 +92,14 @@ public class PartnerRepresentation extends AbstractRepresentation{
 
 	public void setBankAccountNumber(int bankAccountNumber) {
 		this.bankAccountNumber = bankAccountNumber;
+	}
+
+	public String getPartnerPassword() {
+		return partnerPassword;
+	}
+
+	public void setPartnerPassword(String partnerPassword) {
+		this.partnerPassword = partnerPassword;
 	}
 
 

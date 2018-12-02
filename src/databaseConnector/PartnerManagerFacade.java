@@ -24,9 +24,9 @@ public class PartnerManagerFacade {
 //		return null;
 	}
 	public Partner postPartner(String firstName, String lastName, String companyName, String address,
-			int phoneNumber, String email, int numberOfOrders, String userID, int bankAccountNumber) {
+			int phoneNumber, String email, String partnerPassword, String userID, int bankAccountNumber) {
 		Partner partner = new Partner(firstName, lastName, companyName, address,
-			 phoneNumber, email, numberOfOrders, userID, bankAccountNumber);
+			 phoneNumber, email, partnerPassword, userID, bankAccountNumber);
 		PartnerDAO.post(partner);
 		
 		return partner;
@@ -46,9 +46,9 @@ public class PartnerManagerFacade {
 		return null;
 	}
 	public Partner updatePartner(String firstName, String lastName, String companyName, String address,
-			int phoneNumber, String email, int numberOfOrders, String userID, int bankAccountNumber) {
+			int phoneNumber, String email, String partnerPassword, String userID, int bankAccountNumber) {
 		Partner partner = new Partner(firstName, lastName, companyName, address,
-			 phoneNumber, email, numberOfOrders, userID, bankAccountNumber);
+			 phoneNumber, email, partnerPassword, userID, bankAccountNumber);
 		PartnerDAO.put(partner);
 		
 		return partner;
