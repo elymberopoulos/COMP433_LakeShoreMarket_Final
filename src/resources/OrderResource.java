@@ -53,11 +53,11 @@ public class OrderResource implements OrderService{
 				.build();	
 	}
 	
-	@Override
+	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/")
-	@LocalPreflight
+	
 	//@Cacheable(cc="public, maxAge=3600") example for caching
 	public Set<OrderRepresentation> getAllOrders() throws ParseException {
 		System.out.println("GET METHOD Request for all Orders .............");
@@ -78,34 +78,34 @@ public class OrderResource implements OrderService{
 				.build();	
 	}
 	
-	@Override
+	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{orderId}")
-	@LocalPreflight
+	
 	public OrderRepresentation getOrder(@PathParam("orderId") int id) throws ParseException {
 		System.out.println("GET METHOD Request from Client with OrderRequest String ............." + id);
 		OrderActivity orderActivity = new OrderActivity();
 		return orderActivity.getSpecificOrder(id);
 		}
 	
-	@Override
+	
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
-	@LocalPreflight
+	
 	public OrderRepresentation createOrder (OrderRequest  orderRequest, @QueryParam("customerId") String customerID) {
 		System.out.println("POST METHOD Request from Client with ............." + orderRequest.getOrderID() + "  " + orderRequest.getSqlDate()
 		+ " " + orderRequest.getSqlExpectedShippingDate() + " " + orderRequest.isShipped());		
 		OrderActivity orderActivity = new OrderActivity(); 
 		return orderActivity.createOrder(orderRequest, customerID);
 	}
-	@Override
+	
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{orderId}")
-	@LocalPreflight
+	
 	public Response deleteOrder(@PathParam("orderId") int id) {
 		System.out.println("Delete METHOD Request from Client with OrderRequest String ............." + id);
 		OrderActivity orderActivity = new OrderActivity();

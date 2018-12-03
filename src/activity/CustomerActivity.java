@@ -38,6 +38,7 @@ public class CustomerActivity {
 			customerRepresentation.setEmail(customer.getEmail());
 			customerRepresentation.setNumberOfOrders(customer.getNumberOfOrders());
 			customerRepresentation.setCreditCardNumber(customer.getCreditCardNumber());
+			customerRepresentation.setPassword(customer.getPassword());
 			setLinksGetAllCustomers(customerRepresentation);
           //now add this representation in the list
           customerRepresentations.add(customerRepresentation);

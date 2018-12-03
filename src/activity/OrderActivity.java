@@ -123,7 +123,7 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		books = new ArrayList<Book>();
 		for(BookRequest br: orderRequests) {
 			br.setProductOwner(customerID);
-			Book book = new Book(br.getProductName(), br.getProductPrice(), "", br.getProductOwner(), br.getProductID(), br.getIsbn(), br.getAuthor(), br.getCategory());
+			Book book = new Book(br.getProductName(), br.getProductPrice(), br.getProductReview(), customerID, br.getProductID(), br.getIsbn(), br.getAuthor(), br.getCategory());
 			books.add(book);
 		}
 		return books;
