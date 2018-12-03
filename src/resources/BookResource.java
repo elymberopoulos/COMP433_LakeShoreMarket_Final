@@ -51,7 +51,7 @@ public class BookResource implements BookService{
 	public Response options() {
 		
 		return Response.ok()
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET, DELETE")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
@@ -105,7 +105,7 @@ public class BookResource implements BookService{
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
-	@Override
+	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/order_id")
@@ -113,10 +113,6 @@ public class BookResource implements BookService{
 	public List<BookRepresentation> getBookByOrderID(@QueryParam("order_id") int orderID) {
 		System.out.println("GET METHOD Request from Client with bookRequest ORDER_ID ............." + orderID);
 		BookActivity bookActivity = new BookActivity();
-//		for(BookRepresentation representation: bookActivity.getBooks(id)) {
-//			System.out.println(representation.getProductName() + "Author: " + representation.getAuthor() + "PRICE: " + representation.getProductPrice());
-//			System.out.println();
-//		}
 		
 		return bookActivity.getAllBooksByOrderID(orderID);
 	}
@@ -134,23 +130,17 @@ public class BookResource implements BookService{
 				.build();	
 	}
 	
-	@Override
+	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/inventory/owner_id")
-	
 	public List<BookRepresentation> getBookByOwnerID(@QueryParam("owner_id") String ownerID) {
 		System.out.println("GET METHOD Request from Client with bookRequest ORDER_ID ............." + ownerID);
 		BookActivity bookActivity = new BookActivity();
-//		for(BookRepresentation representation: bookActivity.getBooks(id)) {
-//			System.out.println(representation.getProductName() + "Author: " + representation.getAuthor() + "PRICE: " + representation.getProductPrice());
-//			System.out.println();
-//		}
 		
 		return bookActivity.getAllBooksByOwnerID(ownerID);
 	}
 	
-	@Override
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
@@ -192,7 +182,7 @@ public class BookResource implements BookService{
 		return null;
 	}
 	
-	@Override
+	
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{bookId}")

@@ -27,13 +27,17 @@ public class PartnerActivity {
 		
 		Iterator<Partner> it = partners.iterator();
 		while(it.hasNext()) {
-          Partner targetPartner = (Partner)it.next();
+          Partner partner = (Partner)it.next();
           PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
-          partnerRepresentation.setUserID(targetPartner.getUserID());
-          partnerRepresentation.setFirstName(targetPartner.getFirstName());
-          partnerRepresentation.setLastName(targetPartner.getLastName());
-          partnerRepresentation.setPhoneNumber(targetPartner.getPhoneNumber());
-          partnerRepresentation.setBankAccountNumber(targetPartner.getBankAccountNumber());
+          	partnerRepresentation.setFirstName(partner.getFirstName());
+	  		partnerRepresentation.setLastName(partner.getLastName());
+	  		partnerRepresentation.setUserID(partner.getUserID());
+	  		partnerRepresentation.setCompanyName(partner.getCompanyName());
+	  		partnerRepresentation.setAddress(partner.getAddress());
+	  		partnerRepresentation.setPhoneNumber(partner.getPhoneNumber());
+	  		partnerRepresentation.setEmail(partner.getEmail());
+	  		partnerRepresentation.setPartnerPassword(partner.getPartnerPassword());
+	  		partnerRepresentation.setBankAccountNumber(partner.getBankAccountNumber());
           setLinksGetAllPartners(partnerRepresentation);
           //now add this representation in the list
           partnerRepresentations.add(partnerRepresentation);

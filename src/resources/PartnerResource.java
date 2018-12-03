@@ -53,7 +53,7 @@ public class PartnerResource implements PartnerService{
 				.build();	
 	}
 
-	@Override
+	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/")
@@ -82,18 +82,17 @@ public class PartnerResource implements PartnerService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{partnerId}")
-	@LocalPreflight
 	public PartnerRepresentation getPartner(@PathParam("partnerId") String id) {
 		System.out.println("GET METHOD Request from Client with PartnerRequest String ............." + id);
 		PartnerActivity partnerActivity = new PartnerActivity();
 		return partnerActivity.getPartner(id);
 	}
-	@Override
+	
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
-	@LocalPreflight
+	
 	public PartnerRepresentation createPartner(PartnerRequest  partnerRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
@@ -103,12 +102,12 @@ public class PartnerResource implements PartnerService{
 				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getPartnerPassword(), 
 				partnerRequest.getUserID(), partnerRequest.getBankAccountNumber());
 	}
-	@Override
+	
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/{partnerId}")
-	@LocalPreflight
+	
 	public PartnerRepresentation updatePartner(PartnerRequest  partnerRequest, @PathParam("partnerId") String id) {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
@@ -118,11 +117,11 @@ public class PartnerResource implements PartnerService{
 				partnerRequest.getAddress(), partnerRequest.getPhoneNumber(), partnerRequest.getEmail(), partnerRequest.getPartnerPassword(), 
 				partnerRequest.getUserID(), partnerRequest.getBankAccountNumber());
 	}
-	@Override
+	
 	@DELETE
 	@Produces({"application/xml" , "application/json"})
 	@Path("/{partnerId}")
-	@LocalPreflight
+	
 	public Response deletePartner(@PathParam("partnerId") String id){
 		System.out.println("Delete METHOD Request from Client with PartnerRequest String ............." + id);
 		PartnerActivity partnerActivity = new PartnerActivity();
