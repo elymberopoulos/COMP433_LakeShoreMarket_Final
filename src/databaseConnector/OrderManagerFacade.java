@@ -34,18 +34,11 @@ public class OrderManagerFacade {
 			shipOrder(orderID);
 			//return "Shipped";
 		}
-//		for(Order order: OrderDAO.get()) {
-//			if(order.getOrderID() == orderID && currentDate.after(format.parse(order.getSqlExpectedShippingDate()))) {
-//				isShipped = true;
-//				shipOrder(order);
-//			}
-//		}
 		return "Not Shipped";
 	}
 	private void shipOrder(int orderID) {
 		OrderDAO.updateStatus("Shipped", orderID);
-//		order.setShipped(true);
-//		order.setStatus("SHIPPED");	
+
 	}
 	
 	public String getOrderStatus(int orderID) throws ParseException {
@@ -57,19 +50,10 @@ public class OrderManagerFacade {
 		}
 		return "NO MATCHING ORDER FOUND.";
 	}
-/*	
-	public Order postOrder(int orderID, List<Book> orderProducts) {
-		Order order = new Order(orderID, orderProducts);
-		OrderDAO.post(order);
-		
-		return order;
-	}
-	*/
+
 	public Order postOrder(List<Book> orderProducts) {
 		Order order = new Order(orderProducts);
-		/*for(Book bookInList: orderProducts) { //ALREADY IN ORDER DAO
-			BookDAO.post(bookInList);
-		}*/
+
 		OrderDAO.post(order);
 		
 		return order;

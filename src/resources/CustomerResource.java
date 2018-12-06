@@ -58,7 +58,7 @@ public class CustomerResource implements CustomerService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/")
-	//@Cacheable(cc="public, maxAge=3600") example for caching
+	//Retrieves all customers
 	public Set<CustomerRepresentation> getCustomers() {
 		System.out.println("GET METHOD Request for all customers .............");
 		CustomerActivity customerActivity = new CustomerActivity();
@@ -82,6 +82,7 @@ public class CustomerResource implements CustomerService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{customerId}")
+	//gets a customer by their specific userID
 	public CustomerRepresentation getCustomer(@PathParam("customerId") String customerID) {
 		System.out.println("GET METHOD Request from Client with customerRequest String ............." + customerID);
 		CustomerActivity customerActivity = new CustomerActivity();
@@ -92,7 +93,7 @@ public class CustomerResource implements CustomerService{
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
-	
+	//Creates a new customer at the root URI
 	public CustomerRepresentation createCustomer(CustomerRequest  customerRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + customerRequest.getFirstName() + "  " + customerRequest.getLastName()
 				 + "  " +  customerRequest.getUserID()  + "  " + customerRequest.getCompanyName()  + "  " + customerRequest.getAddress()  + "  " + customerRequest.getPhoneNumber()
@@ -107,7 +108,7 @@ public class CustomerResource implements CustomerService{
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/{customerId}")
-	
+	//This method takes a customer request like createCustomer method but this one will update a user in the DB with a specific customerID
 	public CustomerRepresentation updateCustomer(CustomerRequest  customerRequest, @PathParam("customerId") String customerID) {
 		System.out.println("POST METHOD Request from Client with ............." + customerRequest.getFirstName() + "  " + customerRequest.getLastName()
 				 + "  " +  customerRequest.getUserID()  + "  " + customerRequest.getCompanyName()  + "  " + customerRequest.getAddress()  + "  " + customerRequest.getPhoneNumber()
@@ -121,7 +122,7 @@ public class CustomerResource implements CustomerService{
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{customerId}")
-	
+	//Deletes a customer by customerID
 	public Response deleteCustomer(@PathParam("customerId") String id){
 		System.out.println("Delete METHOD Request from Client with customerRequest String ............." + id);
 		CustomerActivity customerActivity = new CustomerActivity();

@@ -22,7 +22,6 @@ public class PartnerActivity {
 		
 		List<Partner> partners = new ArrayList<Partner>();
 		Set<PartnerRepresentation> partnerRepresentations = new HashSet<PartnerRepresentation>();
-		//employees = dao.getAllEmployees();
 		partners = manager.getPartner();
 		
 		Iterator<Partner> it = partners.iterator();
@@ -39,14 +38,12 @@ public class PartnerActivity {
 	  		partnerRepresentation.setPartnerPassword(partner.getPartnerPassword());
 	  		partnerRepresentation.setBankAccountNumber(partner.getBankAccountNumber());
           setLinksGetAllPartners(partnerRepresentation);
-          //now add this representation in the list
           partnerRepresentations.add(partnerRepresentation);
         }
 		return partnerRepresentations;
 	}
 	
 	private void setLinksGetAllPartners(PartnerRepresentation partnerRep) {
-		// Set up the activities that can be performed on orders
 		Link partnerIdLink = new Link("List", "http://localhost:8081/partner/" + partnerRep.getUserID());
 		Link partnerRootLink = new Link("List", "http://localhost:8081/partner/");
 
@@ -118,7 +115,6 @@ public class PartnerActivity {
 	
 	public String deletePartner(String id) {
 		
-		//dao.deleteEmployee(id);
 		manager.deletePartner(id);
 		
 		return "OK";

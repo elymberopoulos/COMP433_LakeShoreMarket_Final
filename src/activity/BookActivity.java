@@ -81,10 +81,9 @@ public class BookActivity {
         return bookRepresentation;	
 	}
 	private void setLinksGetOneBook(BookRepresentation bookRep, String customerID) {
-		// Set up the activities that can be performed on orders
-		Link orderRootLink = new Link("List", "http://localhost:8081/order?customerId=" + customerID); //POST //QUERY change product owner to customer																							//this books owner is set to current customerID from session(BUYING)
+		Link orderRootLink = new Link("List", "http://localhost:8081/order?customerId=" + customerID); //POST //QUERY change product owner to customer	(PURCHASE)																						//this books owner is set to current customerID from session(BUYING)
+		Link bookReviewLink = new Link("List", "http://localhost:8081/book/submit_review/review/" + bookRep.getProductName() + "?review=");//POST a review to book with specific name
 		//Link bookStore = new Link("List", "http://localhost:8081/book/"); //GET all books
-		Link bookReviewLink = new Link("List", "http://localhost:8081/book/submit_review/review/" + bookRep.getProductName() + "?review=");
 		bookRep.setLinks(orderRootLink, bookReviewLink);
 	}
 	

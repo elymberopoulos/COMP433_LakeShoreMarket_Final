@@ -61,7 +61,7 @@ public class BookResource implements BookService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/")
-	//@Cacheable(cc="public, maxAge=3600") example for caching
+	//This method returns all the books in the book store.
 	public Set<BookRepresentation> getAllBooks() {
 		System.out.println("GET METHOD Request for all books .............");
 		BookActivity bookActivity = new BookActivity();
@@ -109,7 +109,7 @@ public class BookResource implements BookService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/order_id")
-	
+	//gets books by their order ID
 	public List<BookRepresentation> getBookByOrderID(@QueryParam("order_id") int orderID) {
 		System.out.println("GET METHOD Request from Client with bookRequest ORDER_ID ............." + orderID);
 		BookActivity bookActivity = new BookActivity();
@@ -134,6 +134,7 @@ public class BookResource implements BookService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/inventory/owner_id")
+	//Retrieves books by their owner userName
 	public List<BookRepresentation> getBookByOwnerID(@QueryParam("owner_id") String ownerID) {
 		System.out.println("GET METHOD Request from Client with bookRequest ORDER_ID ............." + ownerID);
 		BookActivity bookActivity = new BookActivity();
@@ -147,6 +148,7 @@ public class BookResource implements BookService{
 	@Path("/")
 	
 	//, @QueryParam("partnerUserName") String partnerUserName
+	//CREATES new books to be added to the bookstore (PARTNERS id is bookRequest.getProductOwner())
 	public BookRepresentation createBook(BookRequest bookRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + bookRequest.getProductName() +" " + bookRequest.getProductPrice() + " " + bookRequest.getProductReview() + " " + bookRequest.getProductOwner() + " " + bookRequest.getProductID() + " " + bookRequest.getIsbn()
 		 + " " + bookRequest.getAuthor() + " " + bookRequest.getCategory());
@@ -171,7 +173,7 @@ public class BookResource implements BookService{
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/submit_review/review/{bookName}")
-	
+	//Sets a review for a book with a specific name
 	public Response reviewBook(@PathParam("bookName") String bookName, @QueryParam("review") String bookReview) {
 		System.out.println("UPDATE review method");
 		BookActivity bookActivity = new BookActivity();
@@ -186,7 +188,7 @@ public class BookResource implements BookService{
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{bookId}")
-	
+	//deletes a book with a specific name
 	public Response deleteBook(@PathParam("bookId") int id) {
 		System.out.println("Delete METHOD Request from Client with bookRequest String ............." + id);
 		BookActivity bookActivity = new BookActivity();

@@ -22,7 +22,6 @@ public class CustomerActivity {
 		
 		List<Customer> customers = new ArrayList<Customer>();
 		Set<CustomerRepresentation> customerRepresentations = new HashSet<CustomerRepresentation>();
-		//employees = dao.getAllEmployees();
 		customers = manager.getCustomer();
 		
 		Iterator<Customer> it = customers.iterator();
@@ -40,13 +39,11 @@ public class CustomerActivity {
 			customerRepresentation.setCreditCardNumber(customer.getCreditCardNumber());
 			customerRepresentation.setPassword(customer.getPassword());
 			setLinksGetAllCustomers(customerRepresentation);
-          //now add this representation in the list
           customerRepresentations.add(customerRepresentation);
         }
 		return customerRepresentations;
 	}
 	private void setLinksGetAllCustomers(CustomerRepresentation customerRep) {
-		// Set up the activities that can be performed on orders
 		Link customerIdLink = new Link("List", "http://localhost:8081/customer/" + customerRep.getUserID());
 
 
@@ -104,7 +101,6 @@ public class CustomerActivity {
 		return customerRepresentation;
 	}
 	private void setLinksCreateCustomer(CustomerRepresentation customerRep) {
-		// Set up the activities that can be performed on orders
 		//Link entryPoint = new Link("List", "http://localhost:8081/book/"); // after creating user, link to the bookstore
 		Link customerRoot = new Link("List", "http://localhost:8081/customer/" + customerRep.getUserID()); //GET view created profile
 
@@ -133,7 +129,6 @@ public class CustomerActivity {
 	}
 	
 	private void setLinksUpdateCustomer(CustomerRepresentation customerRep) {
-		// Set up the activities that can be performed on orders
 		//Link entryPoint = new Link("List", "http://localhost:8081/book/"); // after creating user, link to the bookstore (NO. User not created yet).
 		Link customerRoot = new Link("List", "http://localhost:8081/customer/" + customerRep.getUserID()); //GET updated profile
 
