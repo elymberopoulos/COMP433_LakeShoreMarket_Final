@@ -4,6 +4,7 @@ package resources;
 import representations.PartnerRepresentation;
 import representations.PartnerRequest;
 import activity.PartnerActivity;
+import errorHandling.ErrorMessage;
 
 import java.util.Set;
 
@@ -94,7 +95,7 @@ public class PartnerResource implements PartnerService{
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
 	//This method creates a new partner at the root URI
-	public PartnerRepresentation createPartner(PartnerRequest  partnerRequest) {
+	public PartnerRepresentation createPartner(PartnerRequest  partnerRequest) throws ErrorMessage {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
 				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getPartnerPassword() + "  " + partnerRequest.getBankAccountNumber());
@@ -110,7 +111,7 @@ public class PartnerResource implements PartnerService{
 	@Path("/{partnerId}")
 	//This method is for update a partner in the database. The entire entry is replaced with new values. similar to creating a customer or partner.
 	//This method though replaces values in the database where this path parameter matches in the database.
-	public PartnerRepresentation updatePartner(PartnerRequest  partnerRequest, @PathParam("partnerId") String id) {
+	public PartnerRepresentation updatePartner(PartnerRequest  partnerRequest, @PathParam("partnerId") String id) throws ErrorMessage {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
 				 + "  " + partnerRequest.getEmail()  + "  " + partnerRequest.getPartnerPassword() + "  " + partnerRequest.getBankAccountNumber());

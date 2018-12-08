@@ -12,6 +12,8 @@ import java.util.Set;
 import serviceUsers.Customer;
 import databaseConnector.BookManagerFacade;
 import databaseConnector.CustomerManagerFacade;
+import errorHandling.DataNotFound;
+import errorHandling.ErrorMessage;
 import link.Link;
 
 
@@ -23,6 +25,9 @@ public class CustomerActivity {
 		List<Customer> customers = new ArrayList<Customer>();
 		Set<CustomerRepresentation> customerRepresentations = new HashSet<CustomerRepresentation>();
 		customers = manager.getCustomer();
+		if(customers == null) {
+			throw new DataNotFound("RESOURCE 404 " + customers + " not found");
+		}
 		
 		Iterator<Customer> it = customers.iterator();
 		while(it.hasNext()) {
@@ -54,6 +59,9 @@ public class CustomerActivity {
 	public CustomerRepresentation getCustomer(String id) {
 		CustomerRepresentation customerRepresentation = new CustomerRepresentation();
 		Customer customer = manager.getMatchingCustomer(id);
+		if(customer == null) {
+			throw new DataNotFound("RESOURCE 404 " + customer + " not found");
+		}
 			customerRepresentation.setFirstName(customer.getFirstName());
 			customerRepresentation.setLastName(customer.getLastName());
 			customerRepresentation.setUserID(customer.getUserID());
@@ -81,7 +89,9 @@ public class CustomerActivity {
 			int phoneNumber, String email, int numberOfOrders, int creditCardNumber, String password) {
 		
 		Customer customer = manager.postCustomer(firstName, lastName, userID, companyName, address, phoneNumber, email, numberOfOrders, creditCardNumber, password);
-		
+		if(customer == null) {
+			throw new DataNotFound("RESOURCE 404 " + customer + " not found");
+		}
 		CustomerRepresentation customerRepresentation = new CustomerRepresentation();
 		customerRepresentation.setFirstName(customer.getFirstName());
 		customerRepresentation.setLastName(customer.getLastName());
@@ -105,10 +115,12 @@ public class CustomerActivity {
 		customerRep.setLinks(bookStoreLink, customerRoot);
 	}
 	public CustomerRepresentation updateCustomer(String firstName, String lastName, String userID, String companyName, String address, 
-			int phoneNumber, String email, int numberOfOrders, int creditCardNumber, String password) {
+			int phoneNumber, String email, int numberOfOrders, int creditCardNumber, String password) throws ErrorMessage {
 		
 		Customer customer = manager.updateCustomer(firstName, lastName, userID, companyName, address, phoneNumber, email, numberOfOrders, creditCardNumber, password);
-		
+		if(customer == null) {
+			throw new ErrorMessage();
+		}
 		CustomerRepresentation customerRepresentation = new CustomerRepresentation();
 		customerRepresentation.setFirstName(customer.getFirstName());
 		customerRepresentation.setLastName(customer.getLastName());

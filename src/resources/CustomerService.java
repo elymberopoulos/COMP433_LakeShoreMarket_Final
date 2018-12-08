@@ -6,6 +6,7 @@ import javax.jws.WebService;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
+import errorHandling.ErrorMessage;
 import representations.CustomerRepresentation;
 import representations.CustomerRequest;
 
@@ -14,6 +15,6 @@ public interface CustomerService {
 	public Set<CustomerRepresentation> getCustomers();
 	public CustomerRepresentation getCustomer(String id);
 	public CustomerRepresentation createCustomer(CustomerRequest  customerRequest);
-	public CustomerRepresentation updateCustomer(CustomerRequest  customerRequest, String id);
+	public CustomerRepresentation updateCustomer(CustomerRequest  customerRequest, String id) throws ErrorMessage;
 	public Response deleteCustomer(String id);
 }

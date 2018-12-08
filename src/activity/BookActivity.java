@@ -9,6 +9,8 @@ import java.util.Set;
 import products.Book;
 
 import databaseConnector.BookManagerFacade;
+import errorHandling.DataNotFound;
+import errorHandling.ErrorMessage;
 import link.Link;
 import representations.BookRepresentation;
 
@@ -27,7 +29,9 @@ public class BookActivity {
 		Set<BookRepresentation> bookRepresentations = new HashSet<BookRepresentation>();
 		//books = dao.getAllBooks();
 		books = managerfacade.getBooks();
-		
+		if(books == null) {
+			throw new DataNotFound("RESOURCE 404 " + books + " not found");
+		}
 		Iterator<Book> it = books.iterator();
 		while(it.hasNext()) {
           Book book = (Book)it.next();
@@ -63,8 +67,10 @@ public class BookActivity {
 	
 	public BookRepresentation getOneBook(String name, String customerID) { //Checks availability and returns representation if available
 		BookRepresentation bookRepresentation = new BookRepresentation();
-		if(managerfacade.checkProductAvailability(name)) {
 			Book book = managerfacade.getOneBook(name);
+			if(book == null) {
+				throw new DataNotFound("RESOURCE 404 " + book + " not found");
+			}
 			bookRepresentation.setProductName(book.getProductName());
 	        bookRepresentation.setProductPrice(book.getProductPrice());
 	        bookRepresentation.setProductReview(book.getProductReview());
@@ -74,10 +80,8 @@ public class BookActivity {
 	        bookRepresentation.setAuthor(book.getAuthor());
 	        bookRepresentation.setCategory(book.getCategory());
 	        setLinksGetOneBook(bookRepresentation, customerID);
-		}
-		else {
-			bookRepresentation.setProductName(name + " (IS NOT AVAILABLE)");
-		}
+		
+
         return bookRepresentation;	
 	}
 	private void setLinksGetOneBook(BookRepresentation bookRep, String customerID) {
@@ -92,7 +96,9 @@ public class BookActivity {
 		List<Book> books = new ArrayList<Book>();
 		List<BookRepresentation> bookRepresentations = new ArrayList<BookRepresentation>();
 		books = managerfacade.getBooksByOrderID(orderID);
-		
+		if(books == null) {
+			throw new DataNotFound("RESOURCE 404 " + books + " not found");
+		}
 		
 		Iterator<Book> it = books.iterator();
 		while(it.hasNext()) {
@@ -129,6 +135,9 @@ public class BookActivity {
 		List<Book> books = new ArrayList<Book>();
 		List<BookRepresentation> bookRepresentations = new ArrayList<BookRepresentation>();
 		books = managerfacade.getBooksByOwnerID(ownerID);
+		if(books == null) {
+			throw new DataNotFound("RESOURCE 404 " + books + " not found");
+		}
 		
 		Iterator<Book> it = books.iterator();
 		while(it.hasNext()) {
@@ -165,9 +174,11 @@ public class BookActivity {
 	}
 	
 	public BookRepresentation createBook (String productName, double productPrice, String productReview, 
-			String productOwner, int productID, int isbn, String author, String category){		
+			String productOwner, int productID, int isbn, String author, String category) throws ErrorMessage{		
 	    Book book = managerfacade.postBook(productName, productPrice, productReview, productOwner, productID, isbn, author, category);
-		
+		if(book == null) {
+			throw new ErrorMessage();
+		}
 		BookRepresentation bookRepresentation = new BookRepresentation();
 		bookRepresentation.setProductName(book.getProductName());
         bookRepresentation.setProductPrice(book.getProductPrice());
