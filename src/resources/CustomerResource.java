@@ -4,6 +4,7 @@ package resources;
 import representations.CustomerRepresentation;
 import representations.CustomerRequest;
 import activity.CustomerActivity;
+import errorHandling.ErrorMessage;
 
 import java.util.Set;
 
@@ -109,7 +110,7 @@ public class CustomerResource implements CustomerService{
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/{customerId}")
 	//This method takes a customer request like createCustomer method but this one will update a user in the DB with a specific customerID
-	public CustomerRepresentation updateCustomer(CustomerRequest  customerRequest, @PathParam("customerId") String customerID) {
+	public CustomerRepresentation updateCustomer(CustomerRequest  customerRequest, @PathParam("customerId") String customerID) throws ErrorMessage {
 		System.out.println("POST METHOD Request from Client with ............." + customerRequest.getFirstName() + "  " + customerRequest.getLastName()
 				 + "  " +  customerRequest.getUserID()  + "  " + customerRequest.getCompanyName()  + "  " + customerRequest.getAddress()  + "  " + customerRequest.getPhoneNumber()
 				 + "  " + customerRequest.getEmail()  + "  " + customerRequest.getNumberOfOrders() + "  " + customerRequest.getCreditCardNumber());

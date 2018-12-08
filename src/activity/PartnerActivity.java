@@ -12,6 +12,8 @@ import java.util.Set;
 import serviceUsers.Partner;
 import databaseConnector.BookManagerFacade;
 import databaseConnector.PartnerManagerFacade;
+import errorHandling.DataNotFound;
+import errorHandling.ErrorMessage;
 import link.Link;
 
 
@@ -23,7 +25,9 @@ public class PartnerActivity {
 		List<Partner> partners = new ArrayList<Partner>();
 		Set<PartnerRepresentation> partnerRepresentations = new HashSet<PartnerRepresentation>();
 		partners = manager.getPartner();
-		
+		if(partners == null) {
+			throw new DataNotFound("RESOURCE 404 " + partners + " not found");
+		}
 		Iterator<Partner> it = partners.iterator();
 		while(it.hasNext()) {
           Partner partner = (Partner)it.next();
@@ -53,7 +57,9 @@ public class PartnerActivity {
 	public PartnerRepresentation getPartner(String id) {
 		PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
 		Partner partner = manager.getSpecificPartner(id);
-		
+		if(partner == null) {
+			throw new DataNotFound("RESOURCE 404 " + partner + " not found");
+		}
 		partnerRepresentation.setFirstName(partner.getFirstName());
 		partnerRepresentation.setLastName(partner.getLastName());
 		partnerRepresentation.setUserID(partner.getUserID());
@@ -75,10 +81,12 @@ public class PartnerActivity {
 	
 	
 	public PartnerRepresentation createPartner(String firstName, String lastName, String companyName, String address,
-			int phoneNumber, String email, String partnerPassword, String userID, int bankAccountNumber) {
+			int phoneNumber, String email, String partnerPassword, String userID, int bankAccountNumber) throws ErrorMessage {
 		
 		Partner partner = manager.postPartner(firstName, lastName, companyName, address, phoneNumber, email, partnerPassword, userID, bankAccountNumber);
-		
+		if(partner == null) {
+			throw new ErrorMessage();
+		}
 		PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
 		partnerRepresentation.setFirstName(partner.getFirstName());
 		partnerRepresentation.setLastName(partner.getLastName());
@@ -101,10 +109,12 @@ public class PartnerActivity {
 	}
 	
 	public PartnerRepresentation updatePartner(String firstName, String lastName, String companyName, String address,
-			int phoneNumber, String email, String partnerPassword, String userID, int bankAccountNumber) {
+			int phoneNumber, String email, String partnerPassword, String userID, int bankAccountNumber) throws ErrorMessage {
 		
 		Partner partner = manager.updatePartner(firstName, lastName, companyName, address, phoneNumber, email, partnerPassword, userID, bankAccountNumber);
-		
+		if(partner == null) {
+			throw new ErrorMessage();
+		}
 		PartnerRepresentation partnerRepresentation = new PartnerRepresentation();
 		partnerRepresentation.setFirstName(partner.getFirstName());
 		partnerRepresentation.setLastName(partner.getLastName());

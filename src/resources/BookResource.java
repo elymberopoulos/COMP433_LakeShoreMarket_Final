@@ -31,6 +31,7 @@ import representations.PurchaseRepresentation;
 import serviceUsers.Customer;
 import activity.BookActivity;
 import activity.CustomerActivity;
+import errorHandling.ErrorMessage;
 
 @CrossOriginResourceSharing(
 		allowAllOrigins = true,
@@ -148,7 +149,7 @@ public class BookResource implements BookService{
 	@Path("/")
 	
 	//CREATES new books to be added to the bookstore (PARTNERS id is bookRequest.getProductOwner())
-	public BookRepresentation createBook(BookRequest bookRequest, 	@QueryParam("partnerUserName") String partnerUserName) {
+	public BookRepresentation createBook(BookRequest bookRequest, 	@QueryParam("partnerUserName") String partnerUserName) throws ErrorMessage {
 		System.out.println("POST METHOD Request from Client with ............." + bookRequest.getProductName() +" " + bookRequest.getProductPrice() + " " + bookRequest.getProductReview() + " " + bookRequest.getProductOwner() + " " + bookRequest.getProductID() + " " + bookRequest.getIsbn()
 		 + " " + bookRequest.getAuthor() + " " + bookRequest.getCategory());
 		BookActivity bookActivity = new BookActivity();

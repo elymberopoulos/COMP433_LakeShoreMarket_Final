@@ -9,6 +9,8 @@ import java.util.Set;
 
 import databaseConnector.BookManagerFacade;
 import databaseConnector.OrderManagerFacade;
+import errorHandling.DataNotFound;
+import errorHandling.ErrorMessage;
 import link.Link;
 import representations.AbstractRepresentation;
 import representations.BookRepresentation;
@@ -26,7 +28,9 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		List<Order> orders = new ArrayList<Order>();
 		Set<OrderRepresentation> orderRepresentations = new HashSet<OrderRepresentation>();
 		orders = manager.getOrders();
-		
+		if(orders == null) {
+			throw new DataNotFound("RESOURCE 404 " + orders + " not found");
+		}
 		Iterator<Order> it = orders.iterator();
 		while(it.hasNext()) {
           Order targetOrder = (Order)it.next();
@@ -58,6 +62,9 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
         OrderRepresentation orderRepresentation = new OrderRepresentation();
         //BookRepresentation bookRep = new BookRepresentation();
 		Order order = manager.getSpecificOrder(id);
+		if(order == null) {
+			throw new DataNotFound("RESOURCE 404 " + order + " not found");
+		}
 		orderRepresentation.setOrderID(order.getOrderID());
 		orderRepresentation.setSqlDate(order.getSqlDate());
 		orderRepresentation.setSqlExpectedShippingDate(order.getSqlExpectedShippingDate());
@@ -68,7 +75,7 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 	}
 
 
-	public OrderRepresentation createOrder(OrderRequest orderProducts, String customerID) {
+	public OrderRepresentation createOrder(OrderRequest orderProducts, String customerID) throws ErrorMessage {
 		
 		//Order order = manager.postOrder(orderID, sqlDate, sqlExpectedShippingDate, isShipped);
 		List<BookRequest> orderRequests = orderProducts.getOrderProducts();
@@ -76,7 +83,9 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		List<Book> convertedBooks = convertBookRequestToBooks(books,orderRequests,customerID);
 
 		Order order = manager.postOrder(convertedBooks);
-
+		if(order == null) {
+			throw new ErrorMessage();
+		}
 		OrderRepresentation orderRepresentation = new OrderRepresentation();
 		orderRepresentation.setOrderID(order.getOrderID());
 		orderRepresentation.setSqlDate(order.getSqlDate());

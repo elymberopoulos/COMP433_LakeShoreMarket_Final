@@ -27,6 +27,7 @@ import javax.ws.rs.core.MediaType;
 import representations.OrderRepresentation;
 import representations.OrderRequest;
 import activity.OrderActivity;
+import errorHandling.ErrorMessage;
 @CrossOriginResourceSharing(
 		allowAllOrigins = true,
 		allowCredentials = true,
@@ -67,7 +68,7 @@ public class OrderResource implements OrderService{
 	@OPTIONS
 	@LocalPreflight
 	@Path("/{orderId}")
-	public Response idOptions(@PathParam("orderId") String orderID	) {
+	public Response idOptions(@PathParam("orderId") int orderID	) {
 		
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET, DELETE")
@@ -97,7 +98,7 @@ public class OrderResource implements OrderService{
 	//once the book objects are created they are passed down the stack and are iterated through in the Order constructor
 	//iterating through the books to assign their order id to match the current order id created in the constructor.
 	//Primary and foreign keys
-	public OrderRepresentation createOrder (OrderRequest  orderRequest, @QueryParam("customerId") String customerID) {
+	public OrderRepresentation createOrder (OrderRequest  orderRequest, @QueryParam("customerId") String customerID) throws ErrorMessage {
 		System.out.println("POST METHOD Request from Client with ............." + orderRequest.getOrderID() + "  " + orderRequest.getSqlDate()
 		+ " " + orderRequest.getSqlExpectedShippingDate() + " " + orderRequest.isShipped());		
 		OrderActivity orderActivity = new OrderActivity(); 
