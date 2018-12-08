@@ -147,14 +147,13 @@ public class BookResource implements BookService{
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
 	
-	//, @QueryParam("partnerUserName") String partnerUserName
 	//CREATES new books to be added to the bookstore (PARTNERS id is bookRequest.getProductOwner())
-	public BookRepresentation createBook(BookRequest bookRequest) {
+	public BookRepresentation createBook(BookRequest bookRequest, 	@QueryParam("partnerUserName") String partnerUserName) {
 		System.out.println("POST METHOD Request from Client with ............." + bookRequest.getProductName() +" " + bookRequest.getProductPrice() + " " + bookRequest.getProductReview() + " " + bookRequest.getProductOwner() + " " + bookRequest.getProductID() + " " + bookRequest.getIsbn()
 		 + " " + bookRequest.getAuthor() + " " + bookRequest.getCategory());
 		BookActivity bookActivity = new BookActivity();
 		return bookActivity.createBook(bookRequest.getProductName(), bookRequest.getProductPrice(), bookRequest.getProductReview(), 
-				bookRequest.getProductOwner(), bookRequest.getProductID(), bookRequest.getIsbn(), bookRequest.getAuthor(), bookRequest.getCategory());
+				partnerUserName, bookRequest.getProductID(), bookRequest.getIsbn(), bookRequest.getAuthor(), bookRequest.getCategory());
 	}
 	
 	@OPTIONS

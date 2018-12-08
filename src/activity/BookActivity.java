@@ -51,13 +51,13 @@ public class BookActivity {
 		return bookRepresentations;
 	}
 	private void setLinksGetAllBooks(BookRepresentation bookRep) {
-		// Set up the activities that can be performed on orders
-		Link bookIdLink = new Link("List", "http://localhost:8081/book/" + bookRep.getProductName()); //link to this book
-		//Link customerRootLink = new Link("List", "http://localhost:8081/customer/" + customerID); //QUERY link back to customer profile
-		//Link partnerRootLink = new Link("List", "http://localhost:8081/partner/"); NOT NECESSARY?
+		Link bookIdLink = new Link("Get_Book", "http://localhost:8081/book/" + bookRep.getProductName()); //link to this book
+		Link registerCustomerLink = new Link("Register_Customer", "http://localhost:8081/customer/"); //customer register link // must register to purchase
+		Link registerPartnerLink = new Link("Register_Partner", "http://localhost:8081/partner/"); //partner register link // must register to post books to be purchased
+
 
 		
-		bookRep.setLinks(bookIdLink);
+		bookRep.setLinks(bookIdLink, registerCustomerLink, registerPartnerLink);
 	}
 
 	
@@ -81,8 +81,8 @@ public class BookActivity {
         return bookRepresentation;	
 	}
 	private void setLinksGetOneBook(BookRepresentation bookRep, String customerID) {
-		Link orderRootLink = new Link("List", "http://localhost:8081/order?customerId=" + customerID); //POST //QUERY change product owner to customer	(PURCHASE)																						//this books owner is set to current customerID from session(BUYING)
-		Link bookReviewLink = new Link("List", "http://localhost:8081/book/submit_review/review/" + bookRep.getProductName() + "?review=");//POST a review to book with specific name
+		Link orderRootLink = new Link("Purchase", "http://localhost:8081/order?customerId=" + customerID); //POST //QUERY change product owner to customer	(PURCHASE)																						//this books owner is set to current customerID from session(BUYING)
+		Link bookReviewLink = new Link("Review_Book", "http://localhost:8081/book/submit_review/review/" + bookRep.getProductName() + "?review=");//POST a review to book with specific name
 		//Link bookStore = new Link("List", "http://localhost:8081/book/"); //GET all books
 		bookRep.setLinks(orderRootLink, bookReviewLink);
 	}
@@ -117,7 +117,7 @@ public class BookActivity {
 		return bookRepresentations;
 	}
 	private void setLinksGetAllBooksByOrderID(BookRepresentation bookRep) {
-		Link bookIdLink = new Link("List", "http://localhost:8081/book/" + bookRep.getProductName()); //links to book in returned order
+		Link bookIdLink = new Link("Get_Book", "http://localhost:8081/book/" + bookRep.getProductName()); //links to book in returned order
 		//Link customerRootLink = new Link("List", "http://localhost:8081/customer/" + customerID); //links back to customer profile after checking order
 		//Link partnerRootLink = new Link("List", "http://localhost:8081/partner/"); NOT NECESSARY
 
@@ -145,17 +145,17 @@ public class BookActivity {
           bookRepresentation.setOrderID(book.getOrderID());
           //now add this representation in the list
           bookRepresentations.add(bookRepresentation);
-          setLinksGetAllBooksByOwnerID(bookRepresentation);
+          setLinksGetAllBooksByOwnerID(bookRepresentation, ownerID);
           
         }
 		return bookRepresentations;
 	}
-	private void setLinksGetAllBooksByOwnerID(BookRepresentation bookRep) {
-		Link bookIdLink = new Link("List", "http://localhost:8081/book/" + bookRep.getProductName()); //links to book in returned order
-		//Link customerRootLink = new Link("List", "http://localhost:8081/customer/" + customerID); //Not necessary? links back to customer profile after checking order
+	private void setLinksGetAllBooksByOwnerID(BookRepresentation bookRep, String customerID) {
+		Link bookIdLink = new Link("Get_Book", "http://localhost:8081/book/" + bookRep.getProductName()); //links to book in returned order
+		Link ownerProfileLink = new Link("Owner_Profile", "http://localhost:8081/customer/" + customerID); //Not necessary? links back to customer profile after checking order
 		//Link partnerRootLink = new Link("List", "http://localhost:8081/partner/"); NOT NECESSARY
 
-		bookRep.setLinks(bookIdLink);
+		bookRep.setLinks(bookIdLink, ownerProfileLink);
 	}
 	
 	
@@ -184,8 +184,7 @@ public class BookActivity {
 	}
 	//STATE MACHINE DEAD END. BACK TO PROFILE PAGE
 	private void setLinksCreateBook(BookRepresentation bookRep) { 
-		// Set up the activities that can be performed on orders
-		Link partnerIdLink = new Link("List", "http://localhost:8081/partner/" + bookRep.getProductOwner());// book created from user
+		Link partnerIdLink = new Link("Create_Book", "http://localhost:8081/partner/" + bookRep.getProductOwner());//back to user profile
 		//Link bookStore = new Link("List", "http://localhost:8081/book/"); //GET all books
 		bookRep.setLinks(partnerIdLink);
 	}

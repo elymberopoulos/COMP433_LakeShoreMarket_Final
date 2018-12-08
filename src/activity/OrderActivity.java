@@ -43,15 +43,14 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		return orderRepresentations;
 	}
 	private void setLinksGetAllOrders(OrderRepresentation orderRep) {
-		// Set up the activities that can be performed on orders
 //		Link bookIdLink = new Link("List", "http://localhost:8081/book/bookId/");
-//		Link customerRootLink = new Link("List", "http://localhost:8081/customer/");
-		Link orderLink = new Link("List", "http://localhost:8081/order/" + orderRep.getOrderID());
-		Link partnerRootLink = new Link("List", "http://localhost:8081/partner/");
+		Link orderLink = new Link("Get_Order", "http://localhost:8081/order/" + orderRep.getOrderID());
+		Link partnerRootLink = new Link("Get_Partners", "http://localhost:8081/partner/");
+		Link customerRootLink = new Link("Get_Customers", "http://localhost:8081/customer/");
 
 
 		
-		orderRep.setLinks(orderLink, partnerRootLink);
+		orderRep.setLinks(orderLink, partnerRootLink, customerRootLink);
 	}
 	
 	public OrderRepresentation getSpecificOrder(int id) throws ParseException {
