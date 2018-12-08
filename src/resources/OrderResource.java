@@ -57,8 +57,7 @@ public class OrderResource implements OrderService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/")
-	
-	//@Cacheable(cc="public, maxAge=3600") example for caching
+	//This retrieves a list of all the orders in the database
 	public Set<OrderRepresentation> getAllOrders() throws ParseException {
 		System.out.println("GET METHOD Request for all Orders .............");
 		OrderActivity orderActivity = new OrderActivity();
@@ -82,7 +81,7 @@ public class OrderResource implements OrderService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{orderId}")
-	
+	//This resource method gets an order by its specific order number
 	public OrderRepresentation getOrder(@PathParam("orderId") int id) throws ParseException {
 		System.out.println("GET METHOD Request from Client with OrderRequest String ............." + id);
 		OrderActivity orderActivity = new OrderActivity();
@@ -94,7 +93,10 @@ public class OrderResource implements OrderService{
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
-	
+	//This order create accepts an orderRequest which consists of a list of bookRequests that will be converted to book objects
+	//once the book objects are created they are passed down the stack and are iterated through in the Order constructor
+	//iterating through the books to assign their order id to match the current order id created in the constructor.
+	//Primary and foreign keys
 	public OrderRepresentation createOrder (OrderRequest  orderRequest, @QueryParam("customerId") String customerID) {
 		System.out.println("POST METHOD Request from Client with ............." + orderRequest.getOrderID() + "  " + orderRequest.getSqlDate()
 		+ " " + orderRequest.getSqlExpectedShippingDate() + " " + orderRequest.isShipped());		
@@ -105,7 +107,7 @@ public class OrderResource implements OrderService{
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{orderId}")
-	
+	//Cancel an order
 	public Response deleteOrder(@PathParam("orderId") int id) {
 		System.out.println("Delete METHOD Request from Client with OrderRequest String ............." + id);
 		OrderActivity orderActivity = new OrderActivity();

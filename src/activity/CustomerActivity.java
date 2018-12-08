@@ -22,7 +22,6 @@ public class CustomerActivity {
 		
 		List<Customer> customers = new ArrayList<Customer>();
 		Set<CustomerRepresentation> customerRepresentations = new HashSet<CustomerRepresentation>();
-		//employees = dao.getAllEmployees();
 		customers = manager.getCustomer();
 		
 		Iterator<Customer> it = customers.iterator();
@@ -40,14 +39,12 @@ public class CustomerActivity {
 			customerRepresentation.setCreditCardNumber(customer.getCreditCardNumber());
 			customerRepresentation.setPassword(customer.getPassword());
 			setLinksGetAllCustomers(customerRepresentation);
-          //now add this representation in the list
           customerRepresentations.add(customerRepresentation);
         }
 		return customerRepresentations;
 	}
 	private void setLinksGetAllCustomers(CustomerRepresentation customerRep) {
-		// Set up the activities that can be performed on orders
-		Link customerIdLink = new Link("List", "http://localhost:8081/customer/" + customerRep.getUserID());
+		Link customerIdLink = new Link("Get_Customer", "http://localhost:8081/customer/" + customerRep.getUserID());
 
 
 		
@@ -72,10 +69,8 @@ public class CustomerActivity {
 			return customerRepresentation;
 	}
 	private void setLinksGetCustomer(CustomerRepresentation customerRep) {
-		// Set up the activities that can be performed on orders
-		Link customerRoot = new Link("List", "http://localhost:8081/customer/"); //GET root directory of users
-		Link customerIdLink = new Link("List", "http://localhost:8081/customer/" + customerRep.getUserID()); //DELETE/UPDATE OPTION
-		//Link orderIdLink = new Link("List", "http://localhost:8081/inventory/" + customerRep.getUserID()); //DELETE/UPDATE OPTION
+		Link customerRoot = new Link("Customer_Directory", "http://localhost:8081/customer/"); //GET root directory of users
+		Link customerIdLink = new Link("Update-Delete", "http://localhost:8081/customer/" + customerRep.getUserID()); //DELETE/UPDATE OPTION
 
 
 		customerRep.setLinks(customerRoot, customerIdLink);
@@ -104,11 +99,10 @@ public class CustomerActivity {
 		return customerRepresentation;
 	}
 	private void setLinksCreateCustomer(CustomerRepresentation customerRep) {
-		// Set up the activities that can be performed on orders
-		//Link entryPoint = new Link("List", "http://localhost:8081/book/"); // after creating user, link to the bookstore
-		Link customerRoot = new Link("List", "http://localhost:8081/customer/" + customerRep.getUserID()); //GET view created profile
+		Link bookStoreLink = new Link("Book_Store", "http://localhost:8081/book/"); //GET bookStore after account creation
+		Link customerRoot = new Link("Created_Profile", "http://localhost:8081/customer/" + customerRep.getUserID()); //GET view created profile
 
-		customerRep.setLinks(customerRoot);
+		customerRep.setLinks(bookStoreLink, customerRoot);
 	}
 	public CustomerRepresentation updateCustomer(String firstName, String lastName, String userID, String companyName, String address, 
 			int phoneNumber, String email, int numberOfOrders, int creditCardNumber, String password) {
@@ -133,11 +127,10 @@ public class CustomerActivity {
 	}
 	
 	private void setLinksUpdateCustomer(CustomerRepresentation customerRep) {
-		// Set up the activities that can be performed on orders
-		//Link entryPoint = new Link("List", "http://localhost:8081/book/"); // after creating user, link to the bookstore (NO. User not created yet).
-		Link customerRoot = new Link("List", "http://localhost:8081/customer/" + customerRep.getUserID()); //GET updated profile
+		Link bookStoreLink = new Link("Book_Store", "http://localhost:8081/book/"); //GET bookStore after account creation
+		Link customerRoot = new Link("Updated_Profile", "http://localhost:8081/customer/" + customerRep.getUserID()); //GET updated profile
 
-		customerRep.setLinks(customerRoot);
+		customerRep.setLinks(bookStoreLink, customerRoot);
 	}
 	
 	public String deleteCustomer(String id) {

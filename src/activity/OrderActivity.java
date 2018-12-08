@@ -43,15 +43,14 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		return orderRepresentations;
 	}
 	private void setLinksGetAllOrders(OrderRepresentation orderRep) {
-		// Set up the activities that can be performed on orders
 //		Link bookIdLink = new Link("List", "http://localhost:8081/book/bookId/");
-//		Link customerRootLink = new Link("List", "http://localhost:8081/customer/");
-		Link orderLink = new Link("List", "http://localhost:8081/order/" + orderRep.getOrderID());
-		Link partnerRootLink = new Link("List", "http://localhost:8081/partner/");
+		Link orderLink = new Link("Get_Order", "http://localhost:8081/order/" + orderRep.getOrderID());
+		Link partnerRootLink = new Link("Get_Partners", "http://localhost:8081/partner/");
+		Link customerRootLink = new Link("Get_Customers", "http://localhost:8081/customer/");
 
 
 		
-		orderRep.setLinks(orderLink, partnerRootLink);
+		orderRep.setLinks(orderLink, partnerRootLink, customerRootLink);
 	}
 	
 	public OrderRepresentation getSpecificOrder(int id) throws ParseException {
@@ -67,38 +66,8 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 
 		return orderRepresentation;
 	}
-	/*
-	public OrderRepresentation createOrder(int orderID, List<Book> orderProducts) {
-		
-		//Order order = manager.postOrder(orderID, sqlDate, sqlExpectedShippingDate, isShipped);
-		Order order = manager.postOrder(orderID, orderProducts);
 
-		
-		OrderRepresentation orderRepresentation = new OrderRepresentation();
-		orderRepresentation.setOrderID(order.getOrderID());
-		orderRepresentation.setSqlDate(order.getSqlDate());
-		orderRepresentation.setSqlExpectedShippingDate(order.getSqlExpectedShippingDate());
-		orderRepresentation.setShipped(order.isShipped());
 
-		return orderRepresentation;
-	}
-	*/
-	
-	/*public OrderRepresentation createOrder(List<Book> orderProducts) {
-		
-		//Order order = manager.postOrder(orderID, sqlDate, sqlExpectedShippingDate, isShipped);
-		Order order = manager.postOrder(orderProducts);
-
-		
-		OrderRepresentation orderRepresentation = new OrderRepresentation();
-		orderRepresentation.setOrderID(order.getOrderID());
-		orderRepresentation.setSqlDate(order.getSqlDate());
-		orderRepresentation.setSqlExpectedShippingDate(order.getSqlExpectedShippingDate());
-		orderRepresentation.setShipped(order.isShipped());
-
-		return orderRepresentation;
-	}
-	*/
 	public OrderRepresentation createOrder(OrderRequest orderProducts, String customerID) {
 		
 		//Order order = manager.postOrder(orderID, sqlDate, sqlExpectedShippingDate, isShipped);
@@ -130,15 +99,6 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 	
 	}
 	
-//	public String requestRefund(int orderID) throws ParseException {
-//		if(manager.checkShippingStatus(orderID)) {
-//			return "ORDER HAS BEEN SHIPPED. RETURN VIA MAIL ONCE IT ARRIVES.";
-//		}
-//		else {
-//			manager.setDBStatusWithDAO("REFUNDED", orderID);
-//			return "ORDER CANCELLED AND REFUND HAS BEEN PROCESSED.";
-//		}
-//	}
 	public String cancelOrder(int orderID) {
 		manager.setDBStatusWithDAO("CANCELLED", orderID);
 		return "ORDER IS CANCELLED";
@@ -150,18 +110,5 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		
 		return "OK";
 	}
-/* DUPLICATE METHOD
-	public OrderRepresentation getOrder(int id) {
-		OrderRepresentation orderRepresentation = new OrderRepresentation();
-		Order order = manager.getSpecificOrder(id);
-			if(order == null){
-				return null;
-			}else {
-				orderRepresentation.setOrderID(order.getOrderID());
-				orderRepresentation.setSqlDate(order.getSqlDate());
-				orderRepresentation.setSqlExpectedShippingDate(order.getSqlExpectedShippingDate());
-				orderRepresentation.setShipped(order.isShipped());
-		}
-		return orderRepresentation;
-	}*/
+
 }

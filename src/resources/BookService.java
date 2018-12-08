@@ -18,7 +18,7 @@ public interface BookService {
 	public List<BookRepresentation> getBookByOrderID(int orderID);
 	public List<BookRepresentation> getBookByOwnerID(String ownerID);
 	public Response reviewBook(String bookName, String bookReview);
-	public BookRepresentation createBook(BookRequest bookRequest);
+	public BookRepresentation createBook(BookRequest bookRequest, String partnerUserName);
 	public Response deleteBook(int id);
    
     //public Response updateBook(BookRequest bookRequest);

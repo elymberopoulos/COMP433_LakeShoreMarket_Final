@@ -58,7 +58,7 @@ public class PartnerResource implements PartnerService{
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/")
 	@LocalPreflight
-	//@Cacheable(cc="public, maxAge=3600") example for caching
+	//This retrieves all the partners in the database
 	public Set<PartnerRepresentation> getPartners() {
 		System.out.println("GET METHOD Request for all Partners .............");
 		PartnerActivity partnerActivity = new PartnerActivity();
@@ -82,6 +82,7 @@ public class PartnerResource implements PartnerService{
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{partnerId}")
+	//get partner by a specific partnerID
 	public PartnerRepresentation getPartner(@PathParam("partnerId") String id) {
 		System.out.println("GET METHOD Request from Client with PartnerRequest String ............." + id);
 		PartnerActivity partnerActivity = new PartnerActivity();
@@ -92,7 +93,7 @@ public class PartnerResource implements PartnerService{
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/")
-	
+	//This method creates a new partner at the root URI
 	public PartnerRepresentation createPartner(PartnerRequest  partnerRequest) {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
@@ -107,7 +108,8 @@ public class PartnerResource implements PartnerService{
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/{partnerId}")
-	
+	//This method is for update a partner in the database. The entire entry is replaced with new values. similar to creating a customer or partner.
+	//This method though replaces values in the database where this path parameter matches in the database.
 	public PartnerRepresentation updatePartner(PartnerRequest  partnerRequest, @PathParam("partnerId") String id) {
 		System.out.println("POST METHOD Request from Client with ............." + partnerRequest.getFirstName() + "  " + partnerRequest.getLastName()
 				 + "  " +  partnerRequest.getUserID()  + "  " + partnerRequest.getCompanyName()  + "  " + partnerRequest.getAddress()  + "  " + partnerRequest.getPhoneNumber()
@@ -121,7 +123,7 @@ public class PartnerResource implements PartnerService{
 	@DELETE
 	@Produces({"application/xml" , "application/json"})
 	@Path("/{partnerId}")
-	
+	//delete partner from database at specific partnerID.
 	public Response deletePartner(@PathParam("partnerId") String id){
 		System.out.println("Delete METHOD Request from Client with PartnerRequest String ............." + id);
 		PartnerActivity partnerActivity = new PartnerActivity();
