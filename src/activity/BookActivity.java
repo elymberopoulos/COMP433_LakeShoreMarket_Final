@@ -23,7 +23,7 @@ public class BookActivity {
 
 	private static BookManagerFacade managerfacade = new BookManagerFacade();
 	
-	public Set<BookRepresentation> getAllBooks() {//GETS ALL BOOKS IN STORE
+	public Set<BookRepresentation> getAllBooks(String customerID) {//GETS ALL BOOKS IN STORE
 		
 		List<Book> books = new ArrayList<Book>();
 		Set<BookRepresentation> bookRepresentations = new HashSet<BookRepresentation>();
@@ -48,20 +48,21 @@ public class BookActivity {
           //now add this representation in the list
           bookRepresentations.add(bookRepresentation);
           
-          setLinksGetAllBooks(bookRepresentation);
+          setLinksGetAllBooks(bookRepresentation, customerID);
           
           
         }
 		return bookRepresentations;
 	}
-	private void setLinksGetAllBooks(BookRepresentation bookRep) {
+	private void setLinksGetAllBooks(BookRepresentation bookRep, String customerID) {
 		Link bookIdLink = new Link("Get_Book", "http://localhost:8081/book/" + bookRep.getProductName()); //link to this book
+		Link orderRootLink = new Link("Purchase", "http://localhost:8081/order?customerId=" + customerID); //POST //QUERY change product owner to customer	(PURCHASE)
 		Link registerCustomerLink = new Link("Register_Customer", "http://localhost:8081/customer/"); //customer register link // must register to purchase
 		Link registerPartnerLink = new Link("Register_Partner", "http://localhost:8081/partner/"); //partner register link // must register to post books to be purchased
 
 
 		
-		bookRep.setLinks(bookIdLink, registerCustomerLink, registerPartnerLink);
+		bookRep.setLinks(bookIdLink, orderRootLink, registerCustomerLink, registerPartnerLink);
 	}
 
 	

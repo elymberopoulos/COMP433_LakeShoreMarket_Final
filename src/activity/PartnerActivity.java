@@ -104,8 +104,8 @@ public class PartnerActivity {
 	}
 	private void setLinksCreatePartner(PartnerRepresentation partnerRep) {
 		Link partnerIdLink = new Link("Get_Partner", "http://localhost:8081/partner/" + partnerRep.getUserID()); //GET created partner profile
-		
-		partnerRep.setLinks(partnerIdLink);
+		Link postBookLocation = new Link("Post_Book", "http://localhost:8081/book/"); //POST new book
+		partnerRep.setLinks(partnerIdLink, postBookLocation);
 	}
 	
 	public PartnerRepresentation updatePartner(String firstName, String lastName, String companyName, String address,

@@ -63,10 +63,10 @@ public class BookResource implements BookService{
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/")
 	//This method returns all the books in the book store.
-	public Set<BookRepresentation> getAllBooks() {
+	public Set<BookRepresentation> getAllBooks(@QueryParam("customerId")String customerID) {
 		System.out.println("GET METHOD Request for all books .............");
 		BookActivity bookActivity = new BookActivity();
-		return bookActivity.getAllBooks();	
+		return bookActivity.getAllBooks(customerID);	
 	}
 	
 	
@@ -154,7 +154,7 @@ public class BookResource implements BookService{
 		 + " " + bookRequest.getAuthor() + " " + bookRequest.getCategory());
 		BookActivity bookActivity = new BookActivity();
 		return bookActivity.createBook(bookRequest.getProductName(), bookRequest.getProductPrice(), bookRequest.getProductReview(), 
-				partnerUserName, bookRequest.getProductID(), bookRequest.getIsbn(), bookRequest.getAuthor(), bookRequest.getCategory());
+				bookRequest.getProductOwner(), bookRequest.getProductID(), bookRequest.getIsbn(), bookRequest.getAuthor(), bookRequest.getCategory());
 	}
 	
 	@OPTIONS

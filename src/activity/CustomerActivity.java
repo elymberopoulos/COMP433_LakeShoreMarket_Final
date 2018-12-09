@@ -110,9 +110,9 @@ public class CustomerActivity {
 	}
 	private void setLinksCreateCustomer(CustomerRepresentation customerRep) {
 		Link bookStoreLink = new Link("Book_Store", "http://localhost:8081/book/"); //GET bookStore after account creation
-		Link customerRoot = new Link("Created_Profile", "http://localhost:8081/customer/" + customerRep.getUserID()); //GET view created profile
+		Link customerID = new Link("Created_Profile", "http://localhost:8081/customer/" + customerRep.getUserID()); //GET view created profile
 
-		customerRep.setLinks(bookStoreLink, customerRoot);
+		customerRep.setLinks(bookStoreLink, customerID);
 	}
 	public CustomerRepresentation updateCustomer(String firstName, String lastName, String userID, String companyName, String address, 
 			int phoneNumber, String email, int numberOfOrders, int creditCardNumber, String password) throws ErrorMessage {
