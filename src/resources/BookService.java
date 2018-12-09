@@ -14,7 +14,7 @@ import representations.BookRequest;
 @WebService
 public interface BookService {
 	   
-	public Set<BookRepresentation> getAllBooks();
+	public Set<BookRepresentation> getAllBooks(String customerID);
 	public BookRepresentation getBookMatchingName(String bookId, String customerID);
 	public List<BookRepresentation> getBookByOrderID(int orderID);
 	public List<BookRepresentation> getBookByOwnerID(String ownerID);
