@@ -56,7 +56,7 @@ public class BookActivity {
 	}
 	private void setLinksGetAllBooks(BookRepresentation bookRep, String customerID) {
 		Link bookIdLink = new Link("Get_Book", "http://localhost:8081/book/" + bookRep.getProductName()); //link to this book
-		Link orderRootLink = new Link("Purchase", "http://localhost:8081/order?customerId=" + customerID); //POST //QUERY change product owner to customer	(PURCHASE)
+		Link orderRootLink = new Link("Purchase", "http://localhost:8081/order/"); //POST //QUERY change product owner to customer on client side	(PURCHASE)
 		Link registerCustomerLink = new Link("Register_Customer", "http://localhost:8081/customer/"); //customer register link // must register to purchase
 		Link registerPartnerLink = new Link("Register_Partner", "http://localhost:8081/partner/"); //partner register link // must register to post books to be purchased
 

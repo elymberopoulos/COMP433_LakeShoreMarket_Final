@@ -15,6 +15,6 @@ import representations.OrderRequest;
 public interface OrderService {
 	public Set<OrderRepresentation> getAllOrders() throws ParseException;
 	public OrderRepresentation getOrder(int id) throws ParseException;
-	public OrderRepresentation createOrder (OrderRequest  orderRequest, String customerID) throws ErrorMessage;
+	public OrderRepresentation createOrder (OrderRequest  orderRequest) throws ErrorMessage;
 	public Response deleteOrder(int id);
 }

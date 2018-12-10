@@ -49,7 +49,7 @@ public class OrderResource implements OrderService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET, DELETE")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
@@ -73,7 +73,7 @@ public class OrderResource implements OrderService{
 		return Response.ok()
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "POST, PUT, GET, DELETE")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS,"true")
-				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"http://localhost:63342")
+				.header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN,"*")
 				.header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,"Content-Type")
 				.build();	
 	}
@@ -98,11 +98,11 @@ public class OrderResource implements OrderService{
 	//once the book objects are created they are passed down the stack and are iterated through in the Order constructor
 	//iterating through the books to assign their order id to match the current order id created in the constructor.
 	//Primary and foreign keys
-	public OrderRepresentation createOrder (OrderRequest  orderRequest, @QueryParam("customerId") String customerID) throws ErrorMessage {
+	public OrderRepresentation createOrder (OrderRequest  orderRequest) throws ErrorMessage {
 		System.out.println("POST METHOD Request from Client with ............." + orderRequest.getOrderID() + "  " + orderRequest.getSqlDate()
 		+ " " + orderRequest.getSqlExpectedShippingDate() + " " + orderRequest.isShipped());		
 		OrderActivity orderActivity = new OrderActivity(); 
-		return orderActivity.createOrder(orderRequest, customerID);
+		return orderActivity.createOrder(orderRequest);
 	}
 	
 	@DELETE
