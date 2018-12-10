@@ -75,12 +75,12 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 	}
 
 
-	public OrderRepresentation createOrder(OrderRequest orderProducts, String customerID) throws ErrorMessage {
+	public OrderRepresentation createOrder(OrderRequest orderProducts) throws ErrorMessage {
 		
 		//Order order = manager.postOrder(orderID, sqlDate, sqlExpectedShippingDate, isShipped);
 		List<BookRequest> orderRequests = orderProducts.getOrderProducts();
 		List<Book> books = new ArrayList<Book>();
-		List<Book> convertedBooks = convertBookRequestToBooks(books,orderRequests,customerID);
+		List<Book> convertedBooks = convertBookRequestToBooks(books,orderRequests);
 
 		Order order = manager.postOrder(convertedBooks);
 		if(order == null) {
@@ -96,12 +96,11 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		return orderRepresentation;
 	}
 	
-	private List<Book> convertBookRequestToBooks(List<Book> books, List<BookRequest> orderRequests,String customerID) {
+	private List<Book> convertBookRequestToBooks(List<Book> books, List<BookRequest> orderRequests) {
 	
 		books = new ArrayList<Book>();
 		for(BookRequest br: orderRequests) {
-			br.setProductOwner(customerID);
-			Book book = new Book(br.getProductName(), br.getProductPrice(), br.getProductReview(), customerID, br.getProductID(), br.getIsbn(), br.getAuthor(), br.getCategory());
+			Book book = new Book(br.getProductName(), br.getProductPrice(), br.getProductReview(), br.getProductOwner(), br.getProductID(), br.getIsbn(), br.getAuthor(), br.getCategory());
 			books.add(book);
 		}
 		return books;
