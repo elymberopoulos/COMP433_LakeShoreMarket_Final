@@ -51,9 +51,6 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		Link orderLink = new Link("Get_Order", "http://localhost:8081/order/" + orderRep.getOrderID());
 		Link partnerRootLink = new Link("Get_Partners", "http://localhost:8081/partner/");
 		Link customerRootLink = new Link("Get_Customers", "http://localhost:8081/customer/");
-
-
-		
 		orderRep.setLinks(orderLink, partnerRootLink, customerRootLink);
 	}
 	
@@ -70,8 +67,13 @@ private static OrderManagerFacade manager = new OrderManagerFacade();
 		orderRepresentation.setSqlExpectedShippingDate(order.getSqlExpectedShippingDate());
 		orderRepresentation.setShipped(order.isShipped());
 		orderRepresentation.setStatus(manager.getOrderStatus(order.getOrderID()));
-
+		setLinksGetSpecificOrder(orderRepresentation);
 		return orderRepresentation;
+	}
+	private void setLinksGetSpecificOrder(OrderRepresentation orderRep) {
+//		Link bookIdLink = new Link("List", "http://localhost:8081/book/bookId/");
+		Link orderLink = new Link("Delete_Order", "http://localhost:8081/order/" + orderRep.getOrderID());
+		orderRep.setLinks(orderLink);
 	}
 
 
